@@ -1,5 +1,7 @@
 ARQUIVO_CHROME_DRIVER=C:/Users/Administrador/Desktop/Selenium Configuracao/libs/out/navegadores/chromedriver.exe
 LINK_APLICACAO_WEB=https://vahomolog.leroymerlin.com.br/va/lmbr/pt/BRL/login
+LINK_APLICACAO_WEB2=https://vahomolog.leroymerlin.com.br/va/lmbr/pt/BRL/login 
+LINK_APLICACAO_WEB3=https://hybrissitlm:9002/va/lmbr/pt/BRL/login
 PARAM_USUARIO_VA=51021157
 PARAM_PWD_VA=1234
 PRODUTO_PEDIDO_1=88282446
