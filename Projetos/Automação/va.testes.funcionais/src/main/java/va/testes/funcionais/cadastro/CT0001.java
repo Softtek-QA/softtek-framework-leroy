@@ -36,8 +36,8 @@ public class CT0001 {
 		chrOptions.addArguments("headless");
 		chrOptions.addArguments("window-size=1200x1024");
 		
-		//ChromeDriver docDriver = new ChromeDriver(chrOptions);
-		ChromeDriver docDriver = new ChromeDriver();		
+		ChromeDriver docDriver = new ChromeDriver(chrOptions);
+		//ChromeDriver docDriver = new ChromeDriver();		
 		
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
 		java.util.HashMap<String, String> parametrosTeste = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
@@ -85,7 +85,13 @@ public class CT0001 {
 		AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar Novo\\W{0,}.{0,}\\<.{0,}\\>");
 
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Adicionar Novo", 0);
-	
+
+		AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar Cliente\\W{0,}.{0,}\\<.{0,}\\>");
+
+		AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Dados Básicos\\W{0,}.{0,}\\<.{0,}\\>");
+
+		
+		
 	}
 
 }

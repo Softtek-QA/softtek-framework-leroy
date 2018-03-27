@@ -1,5 +1,6 @@
 package va.testes.funcionais.utils;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,6 +10,14 @@ import org.openqa.selenium.opera.OperaDriver;
 import va.testes.funcionais.runtime.*;
 public class AUTVAUtilidades {
 
+	/**
+	 * 
+	 * Extrai e imprime de forma padronizada mensagens de erro geradas pelo sistema
+	 * 
+	 * @param e - Exceção que foi lançada pelo sistema
+	 * @param docDriver - WebDriver
+	 * 
+	 */
 	public static void autLogMsg(java.lang.Exception e,org.openqa.selenium.WebDriver docDriver) {
 		System.out.println(String.format("AUT MSG LOG: %s",e.getMessage()));
 		System.out.println(String.format("AUT Titulo pagina: %s\nAUT Conteudo da Pagina:\n\n",docDriver.getTitle()));			
@@ -16,6 +25,19 @@ public class AUTVAUtilidades {
 		e.printStackTrace();
 	}
 
+	
+	/**
+	 * 
+	 * Executa um método de um elemento HTML específico
+	 * 
+	 * @param browserNome - Nome do browser (use o método getName() da classe do objeto para retornar esse valor, para isso deve ser específicado o nome da versão webdriver diretamente Ex: ChromeDriver chr = new ChromeDriver())
+	 * @param docItem - Webdriver
+	 * @param tagElementoProcurado - Tag do elemento procurado
+	 * @param metodoParaAcionar - Método que será chamado no elemento HTML (Exemplo: click)
+	 * @param conteudoElementoProcurado - Conteúdo texto que o elemento deve possuir
+	 * @param numeroOcorrenciasDoItem - Número de ocorrencias do item que devem ser descartadas
+	 * 
+	 */
 	public static void executarMetodoElementoHTML(String browserNome,org.openqa.selenium.WebDriver docItem,String tagElementoProcurado,String metodoParaAcionar,String conteudoElementoProcurado,int numeroOcorrenciasDoItem) {
 		try {
 			
@@ -58,6 +80,15 @@ public class AUTVAUtilidades {
 		}
 	}
 
+	/**
+	 * 
+	 * Função para sincronização de etapas no processo de automação
+	 * 
+	 * @param segundosTimeOut - Timeout em segundos para aguarda que o elemento esteja disponível
+	 * @param docDriver - Webdriver
+	 * @param textoExpressaoRegular - Expressão regular que define o resultado esperado para o passo em questão (padrão java)
+	 * @return - True para sucesso false caso contrário
+	 */
 	public static boolean sincronizarStepPorTexto(Integer segundosTimeOut,org.openqa.selenium.WebDriver docDriver,String textoExpressaoRegular) {
 		class AUTProcessCloseException extends java.lang.RuntimeException{
 			public AUTProcessCloseException() {
@@ -172,6 +203,19 @@ public class AUTVAUtilidades {
 
 
 
+	/**
+	 * 
+	 * Retorna um elemento para manipulação com base no valor do atributo especificado
+	 * 
+	 * @param docItem - Webdriver
+	 * @param tagElement - Tag do elemento 
+	 * @param numOcorrencia - Número do total de ocorrências do elemento que deve ser descartada
+	 * @param nomeAtributo - Nome do atributo HTML que será verificado
+	 * @param conteudoPesquisa - Conteúdo que o atributo especificado deve conter
+	 * @param output - Mensagem de retorno do processamento da função
+	 * @return - WebElement que poderá ser manipulado
+	 * 
+	 */
 	public static org.openqa.selenium.WebElement pesquisarObjeto(org.openqa.selenium.WebDriver docItem,String tagElement,int numOcorrencia,String nomeAtributo,String conteudoPesquisa,Object... output){
 
 		java.util.List<org.openqa.selenium.WebElement> elementos = docItem.findElements(By.tagName(tagElement));
@@ -241,18 +285,17 @@ public class AUTVAUtilidades {
 		return null;
 	}
 
-	public static org.openqa.selenium.WebElement pesquisarObjeto(org.openqa.selenium.WebDriver docItem,String tagElement,String expressaoRegular){
+	
 
-		java.util.List<org.openqa.selenium.WebElement> elementos = docItem.findElements(By.tagName(tagElement));
-		String conteudoValidacao = "";
-		System.out.println("HTML: PESQUISANDO ELEMENTO: ".concat(tagElement));
-		java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegular);
-		java.util.regex.Matcher analise;
-		int totalOcorrencias = 0;
-
-		return null;
-	}
-
+	/**
+	 * Responsável por fazer o login no sistema VA
+	 * 
+	 * @param docDriver - WebDriver
+	 * @param usuario - Usuário com acesso ao sistema
+	 * @param senha - Senha do usuário
+	 * @return - True (Sucesso no login) false caso contrário
+	 * 
+	 */
 	public static boolean fazerLogin(org.openqa.selenium.WebDriver docDriver,String usuario,String senha) {
 		try {
 
