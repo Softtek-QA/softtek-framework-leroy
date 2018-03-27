@@ -2,6 +2,9 @@ package va.testes.funcionais.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.opera.OperaDriver;
 
 import va.testes.funcionais.runtime.*;
 public class AUTVAUtilidades {
@@ -11,6 +14,48 @@ public class AUTVAUtilidades {
 		System.out.println(String.format("AUT Titulo pagina: %s\nAUT Conteudo da Pagina:\n\n",docDriver.getTitle()));			
 		System.out.println(docDriver.getPageSource());
 		e.printStackTrace();
+	}
+
+	public static void executarMetodoElementoHTML(String browserNome,org.openqa.selenium.WebDriver docItem,String tagElementoProcurado,String metodoParaAcionar,String conteudoElementoProcurado,int numeroOcorrenciasDoItem) {
+		try {
+			
+			String script = "try{cont=0;numOcorrencia=%s;contOcorrencias=0;tot=document.getElementsByTagName(\"%s\").length;itens=document.getElementsByTagName(\"%s\");output=\"\";while(cont<tot){console.log(itens[cont]);output+=itens[cont];cont++;strItem=itens[cont].innerHTML.toString();if(strItem.indexOf(\"%s\") >= 0){console.log(\"***** encontrado *****\");if(contOcorrencias==numOcorrencia){console.log(\"@@@**** ATIVANDO ITEM:\");itens[cont].%s();}contOcorrencias++}};console.log(output);}catch(exp){}";
+			String scriptFormat = String.format(script, numeroOcorrenciasDoItem,tagElementoProcurado,tagElementoProcurado,conteudoElementoProcurado,metodoParaAcionar);
+			
+			if(browserNome.contains("chrome")) {
+				ChromeDriver doc = (ChromeDriver) docItem;
+				
+				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR CHROME");
+				
+				doc.executeScript(scriptFormat);
+				
+			}
+			else if(browserNome.contains("gecko")) {
+				FirefoxDriver doc = (FirefoxDriver) docItem;
+				
+				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR FIREFOX (GECKO)");				
+				doc.executeScript(scriptFormat);
+			}
+			else if(browserNome.contains("ie")) {
+				InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
+							
+				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR INTERNET EXPLORER");
+				doc.executeScript(scriptFormat);				
+			}
+			else if(browserNome.contains("opera")) {
+				OperaDriver doc = (OperaDriver) docItem;
+				
+				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR OPERA");				
+				doc.executeScript(scriptFormat);	
+			}
+			
+			System.out.println(scriptFormat);
+		}
+		catch(java.lang.Exception e) {
+			System.out.println("AUT INFO : ERRO NA DEFINICAO DO METODO DE PESQUISA : JSCRIPT");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	public static boolean sincronizarStepPorTexto(Integer segundosTimeOut,org.openqa.selenium.WebDriver docDriver,String textoExpressaoRegular) {
@@ -118,37 +163,40 @@ public class AUTVAUtilidades {
 		}
 		catch(AUTProcessCloseException e) {
 			System.out.println(e.getMessage());
-			
+
 			return true;
 		}
 
 	}
 
+
+
+
 	public static org.openqa.selenium.WebElement pesquisarObjeto(org.openqa.selenium.WebDriver docItem,String tagElement,int numOcorrencia,String nomeAtributo,String conteudoPesquisa,Object... output){
-		
+
 		java.util.List<org.openqa.selenium.WebElement> elementos = docItem.findElements(By.tagName(tagElement));
 		String conteudoValidacao = "";
 		System.out.println("HTML: PESQUISANDO ELEMENTO: ".concat(tagElement));
 		java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(conteudoPesquisa);
 		java.util.regex.Matcher analise;
 		int totalOcorrencias = 0;
-		
+
 		java.util.List<String> ltOutput = new java.util.ArrayList<String>();
-		
+
 		for(int cont = 0;cont < elementos.size();cont++) {			
 			org.openqa.selenium.WebElement wbItem = elementos.get(cont);
-			
-			
+
+
 			String conteudo = wbItem.getAttribute(nomeAtributo);
 			try {
 				analise = padrao.matcher(conteudo);
 				String dtOut = "";
 				while(analise.find()) {
 					System.out.println("INFO HTML: ELEMENTO ENCONTRADO:");
-					
+
 					System.out.println(conteudo);
 					ltOutput.add(conteudo);
-					
+
 					if(totalOcorrencias == numOcorrencia) {
 						conteudoValidacao = conteudo;
 						System.out.println(String.format("CONTEUDO PROCURADO: %s CONTEUDO: %s : NUM OCORRENCIA: %s", conteudoPesquisa,conteudo,totalOcorrencias));
@@ -158,53 +206,53 @@ public class AUTVAUtilidades {
 							}	
 						}
 						catch(java.lang.Exception e) {
-							
+
 						}
 						return wbItem;
 					}	
-					
+
 					if(numOcorrencia==-1) {	
-						
+
 						try {
 							if(output.length > 0) {
 								System.out.println(wbItem.getAttribute(output[0].toString()));
 							}	
 						}
 						catch(java.lang.Exception e) {
-							
+
 						}
-						
+
 						return wbItem;
 					}
-									
+
 					totalOcorrencias++;
 				}	
 			}
 			catch(java.lang.Exception e) {
-				
+
 			}
 		}
-		
+
 		System.out.println("HTML: PESQUISANDO ELEMENTO: FIM DA PESQUISA");
 		System.out.println(String.format("HTML : ERROR PESQUISA: ELEMENTO COM O TEXTO: %s",conteudoPesquisa));
 		System.out.println("\n\nHTML INFO : CONTEUDO DO DOCUMENTO GERADOR ERRO\n\n\n");
 		System.out.println(docItem.getPageSource());
-		
+
 		return null;
 	}
 
 	public static org.openqa.selenium.WebElement pesquisarObjeto(org.openqa.selenium.WebDriver docItem,String tagElement,String expressaoRegular){
-		
+
 		java.util.List<org.openqa.selenium.WebElement> elementos = docItem.findElements(By.tagName(tagElement));
 		String conteudoValidacao = "";
 		System.out.println("HTML: PESQUISANDO ELEMENTO: ".concat(tagElement));
 		java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegular);
 		java.util.regex.Matcher analise;
 		int totalOcorrencias = 0;
-		
+
 		return null;
 	}
-	
+
 	public static boolean fazerLogin(org.openqa.selenium.WebDriver docDriver,String usuario,String senha) {
 		try {
 
