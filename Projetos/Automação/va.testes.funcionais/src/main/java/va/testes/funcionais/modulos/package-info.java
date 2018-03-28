@@ -9,4 +9,4 @@
  * @author Softtek - QA
  *
  */
-package va.testes.funcionais.cadastro;
+package va.testes.funcionais.modulos;

@@ -1,4 +1,4 @@
-package va.testes.funcionais.cadastro;
+package va.testes.funcionais.modulos;
 
 import static org.junit.Assert.*;
 
@@ -22,13 +22,11 @@ import org.openqa.selenium.remote.RemoteKeyboard;
 
 import va.testes.funcionais.md.AUTDataLoader;
 import va.testes.funcionais.utils.AUTVAUtilidades;
-public class CT0001 {
-
-
+public class AUTVAModuloCadastroClientesPF {
 
 	@Test
 	public void test() throws IOException, InterruptedException {
-
+		
 		System.setProperty("webdriver.chrome.driver", "../va.testes.funcionais/src/main/resources/chromedriver.exe");
 		ChromeOptions chrOptions = new ChromeOptions();
 
@@ -36,8 +34,8 @@ public class CT0001 {
 		chrOptions.addArguments("headless");
 		chrOptions.addArguments("window-size=1200x1024");
 
-		ChromeDriver docDriver = new ChromeDriver(chrOptions);
-		//ChromeDriver docDriver = new ChromeDriver();		
+		//ChromeDriver docDriver = new ChromeDriver(chrOptions);
+		ChromeDriver docDriver = new ChromeDriver();		
 
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
 		java.util.HashMap<String, String> parametrosTeste = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
@@ -260,8 +258,6 @@ public class CT0001 {
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
 			
-			
-
 		}
 	}
 
