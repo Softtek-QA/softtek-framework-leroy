@@ -25,6 +25,167 @@ public class AUTVAUtilidades {
 		e.printStackTrace();
 	}
 
+	/**
+	 * 
+	 * Envia dados para o elemento com um delay no input de dados
+	 * 
+	 * @param elemento - Elemento alvo para entrada de dados
+	 * @param delayEntrada - Tempo de delay em (segundos)
+	 * @param conteudo - Conteúdo de entrada
+	 * 
+	 */
+	public static void enviarDadosElementWeb(org.openqa.selenium.WebElement elemento,long delayEntrada,String conteudo) {
+		for(Character chr : conteudo.toCharArray()) {
+			elemento.sendKeys(chr.toString());
+			try {
+				java.lang.Thread.currentThread().sleep(delayEntrada * 1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
+
+	/**
+	 * 
+	 * Envia dados para a tela com um delay especificado sem elemento associado
+	 * 
+	 * @param browserNome - Nome do browser alvo dos testes
+	 * @param docItem - Webdriver
+	 * @param delayEntrada - Delay no input de dados
+	 * @param conteudo - Conteúdo de entrada do campo
+	 * 
+	 */
+	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String conteudo) {
+		if(browserNome.contains("chrome")) {
+			ChromeDriver doc = (ChromeDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+		}
+		else if(browserNome.contains("gecko")) {
+			FirefoxDriver doc = (FirefoxDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		else if(browserNome.contains("ie")) {
+			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		else if(browserNome.contains("opera")) {
+			OperaDriver doc = (OperaDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * Envia dados para o elemento com (Tag) específica e que tenha o texto específico
+	 * 
+	 * @param browserNome - Nome do browser (webdriver), pode ser obtido com o método getName() da classe webdriver
+	 * @param docItem - Webdriver
+	 * @param tagElementoComTextoProcurado - Tag do elemento na qual o (textoElemento) será procurado
+	 * @param numeroOcorrencia - Número de ocorrências a desconsiderar
+	 * @param textoElemento - Texto do elemento procurado
+	 * @param delayEntrada - Delay no input de dados do sistema
+	 * @param conteudo - Conteúdo a ser enviado para tela
+	 * 
+	 */
+	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,String tagElementoComTextoProcurado,Integer numeroOcorrencia,String textoElemento,long delayEntrada,String conteudo) {
+		AUTVAUtilidades.executarMetodoElementoHTML(browserNome, docItem, tagElementoComTextoProcurado, "click", textoElemento, numeroOcorrencia);
+		
+		if(browserNome.contains("chrome")) {
+			ChromeDriver doc = (ChromeDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+		}
+		else if(browserNome.contains("gecko")) {
+			FirefoxDriver doc = (FirefoxDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		else if(browserNome.contains("ie")) {
+			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		else if(browserNome.contains("opera")) {
+			OperaDriver doc = (OperaDriver) docItem;
+			
+			for(Character chr : conteudo.toCharArray()) {
+				doc.getKeyboard().sendKeys(chr.toString());
+				try {
+					java.lang.Thread.currentThread().sleep(1000 * delayEntrada);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+		}
+	}
+	
 	
 	/**
 	 * 
