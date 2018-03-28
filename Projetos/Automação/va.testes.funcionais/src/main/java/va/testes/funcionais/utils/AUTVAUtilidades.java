@@ -1,7 +1,15 @@
 package va.testes.funcionais.utils;
 
+import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.text.DateFormat;
+
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -25,6 +33,26 @@ public class AUTVAUtilidades {
 		e.printStackTrace();
 	}
 
+	public static <TypeHTMLItem extends TakesScreenshot> String capturarEvidencia(TypeHTMLItem elemento,String nomeStep) {
+		String outDir = "";
+		String outDirDestino = "../va.testes.funcionais/Evidencias/".concat(nomeStep).concat(".png");
+
+		CopyOption cpy;
+		
+		
+		java.io.File outFile = elemento.getScreenshotAs(OutputType.FILE);
+		System.out.println(String.format("COPIANDO EVIDENCIA: %s PARA: %s", outFile.getAbsolutePath(),outDirDestino));
+		
+		try {
+			java.nio.file.Files.copy(Paths.get(outFile.getAbsolutePath()), Paths.get(outDirDestino),StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return outDir;
+	}
 	/**
 	 * 
 	 * Envia dados para o elemento com um delay no input de dados
@@ -212,6 +240,7 @@ public class AUTVAUtilidades {
 				
 				doc.executeScript(scriptFormat);
 				
+				
 			}
 			else if(browserNome.contains("gecko")) {
 				FirefoxDriver doc = (FirefoxDriver) docItem;
@@ -223,16 +252,21 @@ public class AUTVAUtilidades {
 				InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
 							
 				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR INTERNET EXPLORER");
-				doc.executeScript(scriptFormat);				
+				doc.executeScript(scriptFormat);	
+				
 			}
 			else if(browserNome.contains("opera")) {
 				OperaDriver doc = (OperaDriver) docItem;
 				
 				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR OPERA");				
 				doc.executeScript(scriptFormat);	
+				
 			}
 			
 			System.out.println(scriptFormat);
+			
+			
+			
 		}
 		catch(java.lang.Exception e) {
 			System.out.println("AUT INFO : ERRO NA DEFINICAO DO METODO DE PESQUISA : JSCRIPT");
@@ -339,6 +373,7 @@ public class AUTVAUtilidades {
 					}
 					else {
 						System.out.println("AUT STATUS FINAL PESQUISA POR TEXTO: FALHOU : TEXTO ENCONTRADO");
+												
 						return false;
 					}
 				}
