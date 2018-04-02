@@ -294,79 +294,79 @@ public class AUTVAUtilidades {
 			}
 		}
 		try {
-			AUTParametrosConfiguracaoSincronizacao.DOC_DRIVER = docDriver;
-			AUTParametrosConfiguracaoSincronizacao.PESQUISAR_POR_TEXTO = true;
-			AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR = textoExpressaoRegular;
-			AUTParametrosConfiguracaoSincronizacao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA = segundosTimeOut;
+			AUTParametrosConfiguracao.DOC_DRIVER = docDriver;
+			AUTParametrosConfiguracao.PESQUISAR_POR_TEXTO = true;
+			AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR = textoExpressaoRegular;
+			AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA = segundosTimeOut;
 			java.lang.Runnable threadMonitor = new java.lang.Runnable() {
 				public void run() {
 					int contCiclos = 0;
-					AUTParametrosConfiguracaoSincronizacao.PESQUISA_FINALIZADA = false;
+					AUTParametrosConfiguracao.PESQUISA_FINALIZADA = false;
 
-					if(AUTParametrosConfiguracaoSincronizacao.PESQUISAR_POR_ELEMENTO) {
-						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR OBJETO (ELEMENTO GUI) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracaoSincronizacao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));					
+					if(AUTParametrosConfiguracao.PESQUISAR_POR_ELEMENTO) {
+						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR OBJETO (ELEMENTO GUI) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));					
 
 					}
-					if(AUTParametrosConfiguracaoSincronizacao.PESQUISAR_POR_TEXTO){
-						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR TEXTO (CODIGO FONTE) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracaoSincronizacao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));
-						System.out.println(String.format("AUT ANALISE FONTE : TEMPO TOTAL PREVISTO : %s : TEMPO ENTRE CICLOS: %s",AUTParametrosConfiguracaoSincronizacao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA,
-								AUTParametrosConfiguracaoSincronizacao.TEMPO_ENTRE_CICLOS_VERIFICACAO));
-						java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
-						AUTParametrosConfiguracaoSincronizacao.EVIDENCIAS_TEXTOS_ENCONTRADOS = new java.util.ArrayList<String>();
-						while(contCiclos <= AUTParametrosConfiguracaoSincronizacao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA) {
+					if(AUTParametrosConfiguracao.PESQUISAR_POR_TEXTO){
+						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR TEXTO (CODIGO FONTE) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));
+						System.out.println(String.format("AUT ANALISE FONTE : TEMPO TOTAL PREVISTO : %s : TEMPO ENTRE CICLOS: %s",AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA,
+								AUTParametrosConfiguracao.TEMPO_ENTRE_CICLOS_VERIFICACAO));
+						java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
+						AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS = new java.util.ArrayList<String>();
+						while(contCiclos <= AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA) {
 							java.util.regex.Matcher analise = null;
 
 							System.out.println(String.format("AUT INFO : TEMPO DE ANALISE: %s",contCiclos));
 
-							String conteudo = AUTParametrosConfiguracaoSincronizacao.DOC_DRIVER.getPageSource();
+							String conteudo = AUTParametrosConfiguracao.DOC_DRIVER.getPageSource();
 							if(conteudo!=null && !conteudo.isEmpty()) {								
 								analise = padrao.matcher(conteudo);							
 								while(analise.find()) {
 									//System.out.println(String.format("AUT RESULTADO: %s : ENCONTRADO",analise.group()));
-									AUTParametrosConfiguracaoSincronizacao.RESULTADO_FINAL_PESQUISA_TEXTO = true;
-									if(!AUTParametrosConfiguracaoSincronizacao.EVIDENCIAS_TEXTOS_ENCONTRADOS.contains(analise.group())) {
-										AUTParametrosConfiguracaoSincronizacao.EVIDENCIAS_TEXTOS_ENCONTRADOS.add(analise.group());
-										AUTParametrosConfiguracaoSincronizacao.RESULTADO_FINAL_PESQUISA_TEXTO = true;
-										AUTParametrosConfiguracaoSincronizacao.PESQUISA_FINALIZADA = true;
+									AUTParametrosConfiguracao.RESULTADO_FINAL_PESQUISA_TEXTO = true;
+									if(!AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS.contains(analise.group())) {
+										AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS.add(analise.group());
+										AUTParametrosConfiguracao.RESULTADO_FINAL_PESQUISA_TEXTO = true;
+										AUTParametrosConfiguracao.PESQUISA_FINALIZADA = true;
 
 										System.out.println("AUT STATUS FINAL PESQUISA POR TEXTO: SUCESSO : TEXTO ENCONTRADO");
 										//System.out.println(String.format("TEXTO PROCURADO: %s TEXTO ENCONTRADO: %s", AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR));
-										System.out.println(AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
+										System.out.println(AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
 										System.out.println("\nOcorrências:\n");
-										for(String item : AUTParametrosConfiguracaoSincronizacao.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
+										for(String item : AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
 											System.out.println("@@ - ".concat(item));
 										}
 										throw new AUTProcessCloseException("@@@@@ FIM DA PESQUISA : ITEM ENCONTRADO");
 									}
-									System.out.println(AUTParametrosConfiguracaoSincronizacao.EVIDENCIAS_TEXTOS_ENCONTRADOS.size());
+									System.out.println(AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS.size());
 								}
 
 							}
 
 							try {
-								java.lang.Thread.currentThread().sleep(AUTParametrosConfiguracaoSincronizacao.TEMPO_ENTRE_CICLOS_VERIFICACAO * 1000);
+								java.lang.Thread.currentThread().sleep(AUTParametrosConfiguracao.TEMPO_ENTRE_CICLOS_VERIFICACAO * 1000);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
-							contCiclos+= AUTParametrosConfiguracaoSincronizacao.TEMPO_ENTRE_CICLOS_VERIFICACAO;
+							contCiclos+= AUTParametrosConfiguracao.TEMPO_ENTRE_CICLOS_VERIFICACAO;
 						}
-						AUTParametrosConfiguracaoSincronizacao.PESQUISA_FINALIZADA = true;
+						AUTParametrosConfiguracao.PESQUISA_FINALIZADA = true;
 					}				
 				}
 			};
 			threadMonitor.run();
 			boolean bEnd = false;
 			while(!bEnd) {
-				bEnd = AUTParametrosConfiguracaoSincronizacao.PESQUISA_FINALIZADA;
+				bEnd = AUTParametrosConfiguracao.PESQUISA_FINALIZADA;
 				if(bEnd) {
-					if(AUTParametrosConfiguracaoSincronizacao.RESULTADO_FINAL_PESQUISA_TEXTO) {
+					if(AUTParametrosConfiguracao.RESULTADO_FINAL_PESQUISA_TEXTO) {
 						System.out.println("AUT STATUS FINAL PESQUISA POR TEXTO: SUCESSO : TEXTO ENCONTRADO");
 						//System.out.println(String.format("TEXTO PROCURADO: %s TEXTO ENCONTRADO: %s", AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR));
-						System.out.println(AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
+						System.out.println(AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
 						System.out.println("\nOcorrências:\n");
-						for(String item : AUTParametrosConfiguracaoSincronizacao.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
+						for(String item : AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
 							System.out.println("@@ - ".concat(item));
 						}
 						return true;

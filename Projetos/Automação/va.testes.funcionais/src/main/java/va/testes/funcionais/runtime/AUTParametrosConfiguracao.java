@@ -1,6 +1,15 @@
 package va.testes.funcionais.runtime;
 
-public class AUTParametrosConfiguracaoSincronizacao {
+public class AUTParametrosConfiguracao {
+	
+	public static Integer MD_ID_PARAMS_CONFIG = 0;
+	/**
+	 * 
+	 * Massa de dados dos testes
+	 * 
+	 */
+	public static java.util.HashMap<Object,java.util.HashMap<Object,Object>> MD_PARAMETROS_CONFIGURACAO_DOS_TESTES = new java.util.HashMap<Object,java.util.HashMap<Object,Object>>(); 
+	
 	/**
 	 * 
 	 * INDICA SE A PESQUISA ESTÁ EM ANDAMENTO

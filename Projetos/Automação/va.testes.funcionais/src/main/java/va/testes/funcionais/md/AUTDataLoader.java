@@ -3,11 +3,13 @@ package va.testes.funcionais.md;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+import va.testes.funcionais.runtime.AUTParametrosConfiguracao;
+
 public class AUTDataLoader {
 
-	public static java.util.HashMap<String, String> carregarParametros(String fileNameFull) throws IOException{
+	public static java.util.HashMap<Object,Object> carregarParametros(String fileNameFull) throws IOException{
 		
-		java.util.HashMap<String,String> params = new java.util.HashMap<String,String>();
+		java.util.HashMap<Object,Object> params = new java.util.HashMap<Object,Object>();
 		
 		if(!java.nio.file.Files.exists(Paths.get(fileNameFull))) {
 			java.nio.file.Files.createFile(Paths.get(fileNameFull));
@@ -28,6 +30,9 @@ public class AUTDataLoader {
 		}
 		
 		System.out.println(params);
+
+		AUTParametrosConfiguracao.MD_ID_PARAMS_CONFIG++;
+		AUTParametrosConfiguracao.MD_PARAMETROS_CONFIGURACAO_DOS_TESTES.put((Object)AUTParametrosConfiguracao.MD_ID_PARAMS_CONFIG, params);		
 		
 		return params;			
 	}

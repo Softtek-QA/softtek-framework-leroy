@@ -9,4 +9,4 @@
  * @author Softtek - QA
  *
  */
-package va.testes.funcionais.modulos;
+package va.testes.funcionais.modulos.clientes;
