@@ -114,6 +114,8 @@ public class AUTVAModuloCadastroClientesPF {
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
 
 
+		Integer contClientes = 1;
+		
 		
 		for(String clienteCorrente : ltCPFClientes) {
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar Novo\\W{0,}.{0,}\\<.{0,}\\>");
@@ -156,7 +158,7 @@ public class AUTVAModuloCadastroClientesPF {
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Sim", 0);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 2");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 2"));
 			
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.getClass().getName(), docDriver, 2, "\t");
 
@@ -168,13 +170,13 @@ public class AUTVAModuloCadastroClientesPF {
 
 			docDriver.findElementById("tipo-0-pf").sendKeys(clienteTipoTelefone);
 			
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 3");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 3"));
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Num. Telefone", 0);
 
 			docDriver.findElementById("novidades-sim").click();
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 4");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 4"));
 			
 
 			docDriver.getKeyboard().sendKeys("\t");
@@ -186,12 +188,12 @@ public class AUTVAModuloCadastroClientesPF {
 
 			docDriver.findElementById("oferta-telefone-sim").click();
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 5");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 5"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "CEP", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("cep-0-pf"), (long)0.3, clienteCEPEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 6");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 6"));
 
 			boolean erroPesquisaCEP = AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Não foi possível realizar sua pesquisa, tente mais tarde.\\W{0,}.{0,}\\<.{0,}\\>");
 			if(erroPesquisaCEP) {
@@ -203,61 +205,62 @@ public class AUTVAModuloCadastroClientesPF {
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Rua", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("rua-0-pf"), (long)0.3, clienteRuaEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 7");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 7"));
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Número", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("numero-0-pf"), (long)0.3, clienteRuaNumEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 8");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 8"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Bairro", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("bairro-0-pf"), (long)0.3, clienteBairroEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 9");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 9"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Complemento", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("complemento-0-pf"), (long)0.3, clienteComplementoEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 10");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 10"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Cidade", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("cidade-0-pf"), (long)0.3, clienteCidadeEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 11");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 11"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Estado", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("estado-0-pf"), (long)0.3, clienteEstadoEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 12");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 12"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Referência", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("referencia-0-pf"), (long)0.3, clienteReferenciaEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 13");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 13"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Tipo de Imóvel", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("tipo-imovel-0-pf"), (long)0.3, clienteTipoImovelEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 14");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 14"));
 			
 			docDriver.findElementById("mala-direta-sim-pf").click();
 
 			docDriver.getKeyboard().sendKeys("\t");
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 15");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 15"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, String.format(".{0,30}%s.{0,30}",clienteCorrente));
 			
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 16");
+			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 16"));
 
 			System.out.println("AUT STATUS FINAL: CLIENTE CADASTRADO COM SUCESSO!!!");
 
 			docDriver.executeScript("cont=0;tot=document.getElementsByTagName(\"strong\").length;itens=document.getElementsByTagName(\"strong\");while(cont<tot){console.log(itens[cont]);cont++;}");
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
-			
+		
+			contClientes++;
 		}
 	}
 
