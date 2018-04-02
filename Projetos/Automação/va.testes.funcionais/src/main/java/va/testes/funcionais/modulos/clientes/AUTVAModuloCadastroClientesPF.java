@@ -38,27 +38,27 @@ public class AUTVAModuloCadastroClientesPF {
 		ChromeDriver docDriver = new ChromeDriver();		
 
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
-		java.util.HashMap<String, String> parametrosTeste = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
+		java.util.HashMap<Object, Object> parametrosTeste = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
 
-		String urlInit = parametrosTeste.get("LINK_APLICACAO_WEB");
-		String usuarioLogin = parametrosTeste.get("PARAM_USUARIO_VA");
-		String senhaLogin = parametrosTeste.get("PARAM_PWD_VA");
-		String clienteCPF = parametrosTeste.get("CLIENTE_CPF");
-		String clienteNome = parametrosTeste.get("CLIENTE_NOME");
-		String clienteEmail = parametrosTeste.get("CLIENTE_EMAIL");
-		boolean clienteAceitaContrato = (parametrosTeste.get("CLIENTE_ACEITA_CONTRATO").toUpperCase()=="S"?true:false);
-		String clienteTipoTelefone = parametrosTeste.get("CLIENTE_TIPO_TELEFONE");
-		String clienteNumeroTelefone = parametrosTeste.get("CLIENTE_NUMERO_TELEFONE");
-		String clienteTipoEndereco = parametrosTeste.get("CLIENTE_TIPO_ENDERECO");
-		String clienteCEPEndereco = parametrosTeste.get("CLIENTE_CEP_ENDERECO");
-		String clienteRuaEndereco = parametrosTeste.get("CLIENTE_RUA_ENDERECO");
-		String clienteRuaNumEndereco = parametrosTeste.get("CLIENTE_RUA_NUM_ENDERECO");
-		String clienteBairroEndereco = parametrosTeste.get("CLIENTE_BAIRRO_ENDERECO");
-		String clienteComplementoEndereco = parametrosTeste.get("CLIENTE_COMPLEMENTO_ENDERECO");
-		String clienteCidadeEndereco = parametrosTeste.get("CLIENTE_CIDADE_ENDERECO");
-		String clienteEstadoEndereco = parametrosTeste.get("CLIENTE_ESTADO_ENDERECO");
-		String clienteReferenciaEndereco = parametrosTeste.get("CLIENTE_REFERENCIA_ENDERECO");
-		String clienteTipoImovelEndereco = parametrosTeste.get("CLIENTE_TIPO_IMOVEL");
+		String urlInit = parametrosTeste.get("LINK_APLICACAO_WEB").toString();
+		String usuarioLogin = parametrosTeste.get("PARAM_USUARIO_VA").toString();
+		String senhaLogin = parametrosTeste.get("PARAM_PWD_VA").toString();
+		String clienteCPF = parametrosTeste.get("CLIENTE_CPF").toString();
+		String clienteNome = parametrosTeste.get("CLIENTE_NOME").toString();
+		String clienteEmail = parametrosTeste.get("CLIENTE_EMAIL").toString();
+		boolean clienteAceitaContrato = (parametrosTeste.get("CLIENTE_ACEITA_CONTRATO").toString().toUpperCase()=="S"?true:false);
+		String clienteTipoTelefone = parametrosTeste.get("CLIENTE_TIPO_TELEFONE").toString();
+		String clienteNumeroTelefone = parametrosTeste.get("CLIENTE_NUMERO_TELEFONE").toString();
+		String clienteTipoEndereco = parametrosTeste.get("CLIENTE_TIPO_ENDERECO").toString();
+		String clienteCEPEndereco = parametrosTeste.get("CLIENTE_CEP_ENDERECO").toString();
+		String clienteRuaEndereco = parametrosTeste.get("CLIENTE_RUA_ENDERECO").toString();
+		String clienteRuaNumEndereco = parametrosTeste.get("CLIENTE_RUA_NUM_ENDERECO").toString();
+		String clienteBairroEndereco = parametrosTeste.get("CLIENTE_BAIRRO_ENDERECO").toString();
+		String clienteComplementoEndereco = parametrosTeste.get("CLIENTE_COMPLEMENTO_ENDERECO").toString();
+		String clienteCidadeEndereco = parametrosTeste.get("CLIENTE_CIDADE_ENDERECO").toString();
+		String clienteEstadoEndereco = parametrosTeste.get("CLIENTE_ESTADO_ENDERECO").toString();
+		String clienteReferenciaEndereco = parametrosTeste.get("CLIENTE_REFERENCIA_ENDERECO").toString();
+		String clienteTipoImovelEndereco = parametrosTeste.get("CLIENTE_TIPO_IMOVEL").toString();
 
 		java.util.List<String> ltCPFClientes = new java.util.ArrayList<String>();
 		String cpfCli = "";
