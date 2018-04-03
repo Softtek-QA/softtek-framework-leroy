@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -33,6 +34,39 @@ public class AUTVAUtilidades {
 		e.printStackTrace();
 	}
 
+	
+	/**
+	 * 
+	 * Retorna um conjunto de possíveis valores
+	 * 
+	 * @param caracteres - Caractere separador de colunas
+	 * 
+	 * @return java.util.HashMap<Object,Object> - Parametros de saída
+	 * 
+	 */
+	public static  java.util.HashMap<Integer,String> autSplitParameters(String expressaoRegularParaDivisaoColunas,String conteudoAnalise){
+		java.util.HashMap<Integer,String> prmOut = new java.util.HashMap<Integer,String>();
+		Integer indexRow = 0;
+		java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularParaDivisaoColunas);
+		java.util.regex.Matcher analise = padrao.matcher(conteudoAnalise);
+		
+		System.out.println("AUT LOADER PARAMS: INIT");
+		
+		while(analise.find()) {
+			
+			prmOut.put(indexRow, analise.group());
+			
+			System.out.println(analise.group());
+			indexRow++;
+		}
+		
+		
+		System.out.println("AUT LOADER PARAMS: END");
+		
+		
+		return prmOut;
+	}
+	
 	public static <TypeHTMLItem extends TakesScreenshot> String capturarEvidencia(TypeHTMLItem elemento,String nomeStep) {
 		String outDir = "";
 		String outDirDestino = "../va.testes.funcionais/Evidencias/".concat(nomeStep).concat(".png");
@@ -74,18 +108,6 @@ public class AUTVAUtilidades {
 		}
 	}
 	
-	
-
-	/**
-	 * 
-	 * Envia dados para a tela com um delay especificado sem elemento associado
-	 * 
-	 * @param browserNome - Nome do browser alvo dos testes
-	 * @param docItem - Webdriver
-	 * @param delayEntrada - Delay no input de dados
-	 * @param conteudo - Conteúdo de entrada do campo
-	 * 
-	 */
 	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String conteudo) {
 		if(browserNome.contains("chrome")) {
 			ChromeDriver doc = (ChromeDriver) docItem;
@@ -139,6 +161,99 @@ public class AUTVAUtilidades {
 					e.printStackTrace();
 				}
 			}	
+		}
+	}
+	
+
+	/**
+	 * 
+	 * Envia dados para a tela com um delay especificado sem elemento associado
+	 * 
+	 * @param browserNome - Nome do browser alvo dos testes
+	 * @param docItem - Webdriver
+	 * @param delayEntrada - Delay no input de dados
+	 * @param conteudo - Conteúdo de entrada do campo
+	 * 
+	 */
+	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String tagElemento,String conteudoInput,String expressaoRegularPesquisa) {
+			
+		if(browserNome.contains("chrome")) {
+			ChromeDriver doc = (ChromeDriver) docItem;
+			
+			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
+			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
+			java.util.regex.Matcher analise = null;
+			for(org.openqa.selenium.WebElement item : ltItens) {
+				String htmlItem = item.getAttribute("outerHTML");
+				analise = padrao.matcher(htmlItem);
+				
+				while(analise.find()) {		
+					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
+					System.out.println(analise.group());
+					System.out.println("\n".concat(htmlItem));
+					
+					item.sendKeys(conteudoInput);
+				}				
+			}
+			
+		}
+		else if(browserNome.contains("gecko")) {
+			FirefoxDriver doc = (FirefoxDriver) docItem;
+			
+			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
+			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
+			java.util.regex.Matcher analise = null;
+			for(org.openqa.selenium.WebElement item : ltItens) {
+				String htmlItem = item.getAttribute("outerHTML");
+				analise = padrao.matcher(htmlItem);
+				
+				while(analise.find()) {		
+					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
+					System.out.println(analise.group());
+					System.out.println("\n".concat(htmlItem));
+					
+					item.sendKeys(conteudoInput);
+				}				
+			}		
+		}
+		else if(browserNome.contains("ie")) {
+			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
+			
+			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
+			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
+			java.util.regex.Matcher analise = null;
+			for(org.openqa.selenium.WebElement item : ltItens) {
+				String htmlItem = item.getAttribute("outerHTML");
+				analise = padrao.matcher(htmlItem);
+				
+				while(analise.find()) {		
+					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
+					System.out.println(analise.group());
+					System.out.println("\n".concat(htmlItem));
+					
+					item.sendKeys(conteudoInput);
+				}				
+			}
+		}
+		else if(browserNome.contains("opera")) {
+			OperaDriver doc = (OperaDriver) docItem;
+			
+			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
+			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
+			java.util.regex.Matcher analise = null;
+			for(org.openqa.selenium.WebElement item : ltItens) {
+				String htmlItem = item.getAttribute("outerHTML");
+				analise = padrao.matcher(htmlItem);
+				
+				while(analise.find()) {		
+					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
+					System.out.println(analise.group());
+					System.out.println("\n".concat(htmlItem));
+					
+					item.sendKeys(conteudoInput);
+				}				
+			}
+			
 		}
 	}
 	

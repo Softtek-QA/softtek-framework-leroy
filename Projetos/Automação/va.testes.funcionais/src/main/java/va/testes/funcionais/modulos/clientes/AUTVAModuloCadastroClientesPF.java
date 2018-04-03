@@ -3,6 +3,8 @@ package va.testes.funcionais.modulos.clientes;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -23,23 +25,33 @@ import org.openqa.selenium.remote.RemoteKeyboard;
 import va.testes.funcionais.md.AUTDataLoader;
 import va.testes.funcionais.utils.AUTVAUtilidades;
 public class AUTVAModuloCadastroClientesPF {
-
+	/**
+	 * 
+	 * Massa de dados do teste
+	 * 
+	 */
+	public static java.util.HashMap<Object,Object> MD_PARAMETROS_ENTRADA;
+	public static java.util.HashMap<Object,Object> MD_PARAMETROS_SAIDA;
+	public static ChromeDriver docDriver = null;
+	public static ChromeOptions chrOptions = null;
+	
 	@Test
 	public void test() throws IOException, InterruptedException {
 		
 		System.setProperty("webdriver.chrome.driver", "../va.testes.funcionais/src/main/resources/chromedriver.exe");
-		ChromeOptions chrOptions = new ChromeOptions();
-
+		chrOptions = new ChromeOptions();
 
 		chrOptions.addArguments("headless");
 		chrOptions.addArguments("window-size=1200x1024");
 
 		//ChromeDriver docDriver = new ChromeDriver(chrOptions);
-		ChromeDriver docDriver = new ChromeDriver();		
+		docDriver = new ChromeDriver();		
 
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
-		java.util.HashMap<Object, Object> parametrosTeste = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
+		MD_PARAMETROS_ENTRADA = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
+		java.util.HashMap<Object, Object> parametrosTeste = MD_PARAMETROS_ENTRADA;
 
+		
 		String urlInit = parametrosTeste.get("LINK_APLICACAO_WEB").toString();
 		String usuarioLogin = parametrosTeste.get("PARAM_USUARIO_VA").toString();
 		String senhaLogin = parametrosTeste.get("PARAM_PWD_VA").toString();
@@ -59,27 +71,12 @@ public class AUTVAModuloCadastroClientesPF {
 		String clienteEstadoEndereco = parametrosTeste.get("CLIENTE_ESTADO_ENDERECO").toString();
 		String clienteReferenciaEndereco = parametrosTeste.get("CLIENTE_REFERENCIA_ENDERECO").toString();
 		String clienteTipoImovelEndereco = parametrosTeste.get("CLIENTE_TIPO_IMOVEL").toString();
-
-		java.util.List<String> ltCPFClientes = new java.util.ArrayList<String>();
-		String cpfCli = "";
-		
-		for(Character chr : clienteCPF.toCharArray()) {
-			if(chr.equals('|')) {
-				ltCPFClientes.add(cpfCli);
-				System.out.println(cpfCli);
-				cpfCli="";
-			}
-			else {
-				cpfCli+= chr;
-			}
-		}
 		
 		docDriver.get(urlInit);
 
 		AUTVAUtilidades.fazerLogin(docDriver, usuarioLogin, senhaLogin);
 
 		boolean existemItemsPendAprov = AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}Você possui pedidos/orçamentos, pendentes de aprovação comercial.{0,}\\<.{0,}\\>");
-
 
 		if(existemItemsPendAprov) {
 			System.out.println("AUT VALIDACAO HTML: EXISTEM PEDIDOS PENDENTES DE APROVACAO");
@@ -117,7 +114,13 @@ public class AUTVAModuloCadastroClientesPF {
 		Integer contClientes = 1;
 		
 		
-		for(String clienteCorrente : ltCPFClientes) {
+		MD_PARAMETROS_SAIDA = new java.util.HashMap<Object,Object>();
+		
+		MD_PARAMETROS_SAIDA.put("CLIENTES", AUTVAUtilidades.autSplitParameters("\\d+",clienteCPF));
+		
+		java.util.HashMap<Object,Object> hashClientes = (java.util.HashMap<Object,Object>)MD_PARAMETROS_SAIDA.get("CLIENTES");
+		
+		for(Object clienteCorrente : hashClientes.values()) {
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar Novo\\W{0,}.{0,}\\<.{0,}\\>");
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Adicionar Novo", 0);
@@ -131,7 +134,7 @@ public class AUTVAModuloCadastroClientesPF {
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "CPF/CNPJ", 0);
 
-			AUTVAUtilidades.enviarDadosElementWeb(docDriver.getClass().getName(), docDriver, 1, clienteCorrente);
+			AUTVAUtilidades.enviarDadosElementWeb(docDriver.getClass().getName(), docDriver, 1, clienteCorrente.toString());
 
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Nome completo\\W{0,}.{0,}\\<.{0,}\\>");
 
@@ -142,7 +145,7 @@ public class AUTVAModuloCadastroClientesPF {
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Nome completo", 0);
 
 
-			docDriver.findElementById("nome-pf").sendKeys(clienteNome.concat(" : ").concat(clienteCorrente));
+			docDriver.findElementById("nome-pf").sendKeys(clienteNome.concat(" : ").concat(clienteCorrente.toString()));
 
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}E-mail\\W{0,}.{0,}\\<.{0,}\\>");
 
@@ -174,19 +177,20 @@ public class AUTVAModuloCadastroClientesPF {
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Num. Telefone", 0);
 
-			docDriver.findElementById("novidades-sim").click();
+			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("telefone-0-pf"), (long)0.5, clienteNumeroTelefone);
+
+			
+			
 
 			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 4"));
 			
-
 			docDriver.getKeyboard().sendKeys("\t");
-
-			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("telefone-0-pf"), (long)0.5, clienteNumeroTelefone);
-
+			
+			docDriver.findElementById("oferta-telefone-sim-pf").click();
 
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("tipo-imovel-0-pf"), (long)0.3, clienteNumeroTelefone);
 
-			docDriver.findElementById("oferta-telefone-sim").click();
+			//docDriver.findElementById("oferta-telefone-sim").click();
 
 			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 5"));
 			
