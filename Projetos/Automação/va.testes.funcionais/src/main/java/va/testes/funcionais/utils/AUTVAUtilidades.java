@@ -16,6 +16,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 
+import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF;
 import va.testes.funcionais.runtime.*;
 public class AUTVAUtilidades {
 
@@ -34,7 +35,7 @@ public class AUTVAUtilidades {
 		e.printStackTrace();
 	}
 
-	
+
 	/**
 	 * 
 	 * Retorna um conjunto de possíveis valores
@@ -49,42 +50,51 @@ public class AUTVAUtilidades {
 		Integer indexRow = 0;
 		java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularParaDivisaoColunas);
 		java.util.regex.Matcher analise = padrao.matcher(conteudoAnalise);
-		
+
 		System.out.println("AUT LOADER PARAMS: INIT");
-		
+
 		while(analise.find()) {
-			
+
 			prmOut.put(indexRow, analise.group());
-			
+
 			System.out.println(analise.group());
 			indexRow++;
 		}
-		
-		
+
+
 		System.out.println("AUT LOADER PARAMS: END");
-		
-		
+
+
 		return prmOut;
 	}
-	
+
+
+	/**
+	 * Função responsável pela captura de tela para evidência dos testes
+	 * 
+	 * @param elemento - Elemento que implementa a interface de captura screen(TakesScreenshot)
+	 * @param nomeStep - Nome do arquivo de imagem que será gerado
+	 * 
+	 * @return String - Caminho do arquivo de captura(screenshot)
+	 */
 	public static <TypeHTMLItem extends TakesScreenshot> String capturarEvidencia(TypeHTMLItem elemento,String nomeStep) {
 		String outDir = "";
 		String outDirDestino = "../va.testes.funcionais/Evidencias/".concat(nomeStep).concat(".png");
 
 		CopyOption cpy;
-		
-		
+
+
 		java.io.File outFile = elemento.getScreenshotAs(OutputType.FILE);
 		System.out.println(String.format("COPIANDO EVIDENCIA: %s PARA: %s", outFile.getAbsolutePath(),outDirDestino));
-		
+
 		try {
 			java.nio.file.Files.copy(Paths.get(outFile.getAbsolutePath()), Paths.get(outDirDestino),StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return outDir;
 	}
 	/**
@@ -107,11 +117,11 @@ public class AUTVAUtilidades {
 			}
 		}
 	}
-	
+
 	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String conteudo) {
 		if(browserNome.contains("chrome")) {
 			ChromeDriver doc = (ChromeDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -124,7 +134,7 @@ public class AUTVAUtilidades {
 		}
 		else if(browserNome.contains("gecko")) {
 			FirefoxDriver doc = (FirefoxDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -137,7 +147,7 @@ public class AUTVAUtilidades {
 		}
 		else if(browserNome.contains("ie")) {
 			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -147,11 +157,11 @@ public class AUTVAUtilidades {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
 		else if(browserNome.contains("opera")) {
 			OperaDriver doc = (OperaDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -163,7 +173,7 @@ public class AUTVAUtilidades {
 			}	
 		}
 	}
-	
+
 
 	/**
 	 * 
@@ -177,97 +187,97 @@ public class AUTVAUtilidades {
 	 */
 	public static java.util.List<org.openqa.selenium.WebElement> procurarElementWebHTML(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String tagElemento,String expressaoRegularPesquisa) {
 		java.util.List<org.openqa.selenium.WebElement> itensOut = new java.util.ArrayList<org.openqa.selenium.WebElement>();
-		
+
 		if(browserNome.contains("chrome")) {
 			ChromeDriver doc = (ChromeDriver) docItem;
-			
+
 			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
-				
+
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
-				
+
 				while(analise.find()) {		
 					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
-					
+
 					itensOut.add(item);
-					
+
 				}								
 			}			
 		}
 		else if(browserNome.contains("gecko")) {
 			FirefoxDriver doc = (FirefoxDriver) docItem;
-			
+
 			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
-				
+
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
-				
+
 				while(analise.find()) {		
 					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
-					
+
 					itensOut.add(item);
-					
+
 				}								
 			}
 		}
 		else if(browserNome.contains("ie")) {
 			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
-			
+
 			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
-				
+
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
-				
+
 				while(analise.find()) {		
 					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
-					
+
 					itensOut.add(item);
-					
+
 				}								
 			}
 		}
 		else if(browserNome.contains("opera")) {
 			OperaDriver doc = (OperaDriver) docItem;
-			
+
 			java.util.List<org.openqa.selenium.WebElement> ltItens = doc.findElementsByTagName(tagElemento);
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
-				
+
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
-				
+
 				while(analise.find()) {		
 					System.out.println("AUT INFO : INPUT DATA : CORRESPONDENCIA ENCONTRADA NO ELEMENTO  : \n");
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
-					
+
 					itensOut.add(item);
-					
+
 				}								
 			}
-			
+
 		}
-		
+
 		return itensOut;		
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * Envia dados para o elemento com (Tag) específica e que tenha o texto específico
@@ -283,10 +293,10 @@ public class AUTVAUtilidades {
 	 */
 	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,String tagElementoComTextoProcurado,Integer numeroOcorrencia,String textoElemento,long delayEntrada,String conteudo) {
 		AUTVAUtilidades.executarMetodoElementoHTML(browserNome, docItem, tagElementoComTextoProcurado, "click", textoElemento, numeroOcorrencia);
-		
+
 		if(browserNome.contains("chrome")) {
 			ChromeDriver doc = (ChromeDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -299,7 +309,7 @@ public class AUTVAUtilidades {
 		}
 		else if(browserNome.contains("gecko")) {
 			FirefoxDriver doc = (FirefoxDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -312,7 +322,7 @@ public class AUTVAUtilidades {
 		}
 		else if(browserNome.contains("ie")) {
 			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -322,11 +332,11 @@ public class AUTVAUtilidades {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
 		else if(browserNome.contains("opera")) {
 			OperaDriver doc = (OperaDriver) docItem;
-			
+
 			for(Character chr : conteudo.toCharArray()) {
 				doc.getKeyboard().sendKeys(chr.toString());
 				try {
@@ -338,8 +348,8 @@ public class AUTVAUtilidades {
 			}	
 		}
 	}
-	
-	
+
+
 	/**
 	 * 
 	 * Executa um método de um elemento HTML específico
@@ -354,44 +364,44 @@ public class AUTVAUtilidades {
 	 */
 	public static void executarMetodoElementoHTML(String browserNome,org.openqa.selenium.WebDriver docItem,String tagElementoProcurado,String metodoParaAcionar,String conteudoElementoProcurado,int numeroOcorrenciasDoItem) {
 		try {
-			
+
 			String script = "try{cont=0;numOcorrencia=%s;contOcorrencias=0;tot=document.getElementsByTagName(\"%s\").length;itens=document.getElementsByTagName(\"%s\");output=\"\";while(cont<tot){console.log(itens[cont]);output+=itens[cont];cont++;strItem=itens[cont].innerHTML.toString();if(strItem.indexOf(\"%s\") >= 0){console.log(\"***** encontrado *****\");if(contOcorrencias==numOcorrencia){console.log(\"@@@**** ATIVANDO ITEM:\");itens[cont].%s();}contOcorrencias++}};console.log(output);}catch(exp){}";
 			String scriptFormat = String.format(script, numeroOcorrenciasDoItem,tagElementoProcurado,tagElementoProcurado,conteudoElementoProcurado,metodoParaAcionar);
-			
+
 			if(browserNome.contains("chrome")) {
 				ChromeDriver doc = (ChromeDriver) docItem;
-				
+
 				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR CHROME");
-				
+
 				doc.executeScript(scriptFormat);
-				
-				
+
+
 			}
 			else if(browserNome.contains("gecko")) {
 				FirefoxDriver doc = (FirefoxDriver) docItem;
-				
+
 				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR FIREFOX (GECKO)");				
 				doc.executeScript(scriptFormat);
 			}
 			else if(browserNome.contains("ie")) {
 				InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
-							
+
 				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR INTERNET EXPLORER");
 				doc.executeScript(scriptFormat);	
-				
+
 			}
 			else if(browserNome.contains("opera")) {
 				OperaDriver doc = (OperaDriver) docItem;
-				
+
 				System.out.println("AUT INFO : EXECUTANDO SCRIPT JS : NAVEGADOR OPERA");				
 				doc.executeScript(scriptFormat);	
-				
+
 			}
-			
+
 			System.out.println(scriptFormat);
-			
-			
-			
+
+
+
 		}
 		catch(java.lang.Exception e) {
 			System.out.println("AUT INFO : ERRO NA DEFINICAO DO METODO DE PESQUISA : JSCRIPT");
@@ -498,7 +508,7 @@ public class AUTVAUtilidades {
 					}
 					else {
 						System.out.println("AUT STATUS FINAL PESQUISA POR TEXTO: FALHOU : TEXTO ENCONTRADO");
-												
+
 						return false;
 					}
 				}
@@ -606,7 +616,71 @@ public class AUTVAUtilidades {
 		return null;
 	}
 
-	
+
+
+	/**
+	 * Responsável por fazer o login no sistema VA
+	 * 
+	 * @param docDriver - WebDriver
+	 * @param usuario - Usuário com acesso ao sistema
+	 * @param senha - Senha do usuário
+	 * @return - True (Sucesso no login) false caso contrário
+	 * 
+	 */
+	public static boolean fazerLoginConfirmacao(org.openqa.selenium.WebDriver docDriver,String usuario,String senha) {
+		try {
+
+			boolean loginConfirmacao = AUTVAUtilidades.sincronizarStepPorTexto(6, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Confirmação de Login\\.\\.\\..{0,}\\<.{0,}\\>");
+
+
+			if(loginConfirmacao) {
+				
+				AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "input", "click", usuario, 0);
+				
+				java.util.List<org.openqa.selenium.WebElement> inputUsr = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}username.{0,}\\.{0,}\\>)");
+
+				for(org.openqa.selenium.WebElement input : inputUsr) {
+					try {
+						//input.sendKeys(usuario);	
+					}
+					catch(java.lang.Exception e) 
+					{
+						
+					}
+				}
+				
+				java.util.List<org.openqa.selenium.WebElement> inputPWD = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}password.{0,}\\.{0,}\\>)");
+
+				for(org.openqa.selenium.WebElement pwd : inputPWD) {
+					//pwd.clear();
+					pwd.sendKeys(senha);	
+				}
+				
+				java.util.List<org.openqa.selenium.WebElement> btAvanc = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(button).{0,}\\W{0,}id\\=.{0,}advancedReAutentication.{0,}\\.{0,}\\>)");
+
+				btAvanc.get(0).click();
+				/*
+				for(org.openqa.selenium.WebElement pwd : inputPWD) {
+					pwd.sendKeys(senha);	
+				}
+				*/
+								
+			}
+			else {
+
+			}
+			return true;
+
+		}
+		catch(java.lang.Exception e) {
+
+			System.out.println("AUT INFO ERROR : NAO FOI POSSIVEL FAZER LOGIN DE CONFIRMACAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+
+			return false;
+		}
+	} 
 
 	/**
 	 * Responsável por fazer o login no sistema VA
