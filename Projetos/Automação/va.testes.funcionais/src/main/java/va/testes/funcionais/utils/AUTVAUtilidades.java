@@ -175,8 +175,9 @@ public class AUTVAUtilidades {
 	 * @param conteudo - Conteúdo de entrada do campo
 	 * 
 	 */
-	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String tagElemento,String conteudoInput,String expressaoRegularPesquisa) {
-			
+	public static java.util.List<org.openqa.selenium.WebElement> procurarElementWebHTML(String browserNome,org.openqa.selenium.WebDriver docItem,long delayEntrada,String tagElemento,String expressaoRegularPesquisa) {
+		java.util.List<org.openqa.selenium.WebElement> itensOut = new java.util.ArrayList<org.openqa.selenium.WebElement>();
+		
 		if(browserNome.contains("chrome")) {
 			ChromeDriver doc = (ChromeDriver) docItem;
 			
@@ -184,6 +185,7 @@ public class AUTVAUtilidades {
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
+				
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
 				
@@ -192,10 +194,10 @@ public class AUTVAUtilidades {
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
 					
-					item.sendKeys(conteudoInput);
-				}				
-			}
-			
+					itensOut.add(item);
+					
+				}								
+			}			
 		}
 		else if(browserNome.contains("gecko")) {
 			FirefoxDriver doc = (FirefoxDriver) docItem;
@@ -204,6 +206,7 @@ public class AUTVAUtilidades {
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
+				
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
 				
@@ -212,9 +215,10 @@ public class AUTVAUtilidades {
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
 					
-					item.sendKeys(conteudoInput);
-				}				
-			}		
+					itensOut.add(item);
+					
+				}								
+			}
 		}
 		else if(browserNome.contains("ie")) {
 			InternetExplorerDriver doc = (InternetExplorerDriver) docItem;
@@ -223,6 +227,7 @@ public class AUTVAUtilidades {
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
+				
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
 				
@@ -231,8 +236,9 @@ public class AUTVAUtilidades {
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
 					
-					item.sendKeys(conteudoInput);
-				}				
+					itensOut.add(item);
+					
+				}								
 			}
 		}
 		else if(browserNome.contains("opera")) {
@@ -242,6 +248,7 @@ public class AUTVAUtilidades {
 			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularPesquisa);
 			java.util.regex.Matcher analise = null;
 			for(org.openqa.selenium.WebElement item : ltItens) {
+				
 				String htmlItem = item.getAttribute("outerHTML");
 				analise = padrao.matcher(htmlItem);
 				
@@ -250,11 +257,14 @@ public class AUTVAUtilidades {
 					System.out.println(analise.group());
 					System.out.println("\n".concat(htmlItem));
 					
-					item.sendKeys(conteudoInput);
-				}				
+					itensOut.add(item);
+					
+				}								
 			}
 			
 		}
+		
+		return itensOut;		
 	}
 	
 	

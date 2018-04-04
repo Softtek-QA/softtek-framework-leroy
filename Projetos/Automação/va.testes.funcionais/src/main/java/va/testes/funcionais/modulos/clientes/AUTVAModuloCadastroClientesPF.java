@@ -245,8 +245,13 @@ public class AUTVAModuloCadastroClientesPF {
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("tipo-imovel-0-pf"), (long)0.3, clienteTipoImovelEndereco);
 
 			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 14"));
-			
+
+			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Aceito receber novidades, ofertas e notícias da Leroy Merlin por mala direta\\W{0,}.{0,}\\<.{0,}\\>");
+
+			java.lang.Thread.currentThread().sleep(4000);
 			docDriver.findElementById("mala-direta-sim-pf").click();
+
+			AUTVAUtilidades.procurarElementWebHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, (long)0.3, "input", "(?i:<(input).{0,}mala\\-{0,}direta\\-{0,}sim\\-pf.{0,}>)").get(0).click();
 
 			docDriver.getKeyboard().sendKeys("\t");
 
@@ -263,7 +268,7 @@ public class AUTVAModuloCadastroClientesPF {
 			docDriver.executeScript("cont=0;tot=document.getElementsByTagName(\"strong\").length;itens=document.getElementsByTagName(\"strong\");while(cont<tot){console.log(itens[cont]);cont++;}");
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
-		
+			 
 			contClientes++;
 		}
 	}
