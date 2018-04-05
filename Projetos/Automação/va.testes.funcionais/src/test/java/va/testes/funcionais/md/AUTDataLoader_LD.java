@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 
 import va.testes.funcionais.runtime.AUTParametrosConfiguracao_LD;
 
-public class AUTDataLoader {
+public class AUTDataLoader_LD {
 
 	public static java.util.HashMap<Object,Object> carregarParametros(String fileNameFull) throws IOException{
 		

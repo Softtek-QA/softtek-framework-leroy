@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF_HOMOLOG_1_LD;
 import va.testes.funcionais.utils.AUTVAUtilidades_LD;
 
-public class AUTVAPedidos {
+public class AUTVAPedidos_HOMOLOG_2 {
 	@Test
 	public void test() {
 		System.setProperty("webdriver.chrome.driver", "../va.testes.funcionais/src/main/resources/chromedriver.exe");

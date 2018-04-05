@@ -16,9 +16,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 
-import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF_HOMOLOG_1_LD;
+import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF_HOMOLOG_1;
 import va.testes.funcionais.runtime.*;
-public class AUTVAUtilidades {
+public class AUTVAUtilidades_LD {
 
 	/**
 	 * 
@@ -292,7 +292,7 @@ public class AUTVAUtilidades {
 	 * 
 	 */
 	public static void enviarDadosElementWeb(String browserNome,org.openqa.selenium.WebDriver docItem,String tagElementoComTextoProcurado,Integer numeroOcorrencia,String textoElemento,long delayEntrada,String conteudo) {
-		AUTVAUtilidades_LD.executarMetodoElementoHTML(browserNome, docItem, tagElementoComTextoProcurado, "click", textoElemento, numeroOcorrencia);
+		AUTVAUtilidades.executarMetodoElementoHTML(browserNome, docItem, tagElementoComTextoProcurado, "click", textoElemento, numeroOcorrencia);
 
 		if(browserNome.contains("chrome")) {
 			ChromeDriver doc = (ChromeDriver) docItem;
@@ -429,79 +429,79 @@ public class AUTVAUtilidades {
 			}
 		}
 		try {
-			AUTParametrosConfiguracao_LD.DOC_DRIVER = docDriver;
-			AUTParametrosConfiguracao_LD.PESQUISAR_POR_TEXTO = true;
-			AUTParametrosConfiguracao_LD.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR = textoExpressaoRegular;
-			AUTParametrosConfiguracao_LD.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA = segundosTimeOut;
+			AUTParametrosConfiguracao.DOC_DRIVER = docDriver;
+			AUTParametrosConfiguracao.PESQUISAR_POR_TEXTO = true;
+			AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR = textoExpressaoRegular;
+			AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA = segundosTimeOut;
 			java.lang.Runnable threadMonitor = new java.lang.Runnable() {
 				public void run() {
 					int contCiclos = 0;
-					AUTParametrosConfiguracao_LD.PESQUISA_FINALIZADA = false;
+					AUTParametrosConfiguracao.PESQUISA_FINALIZADA = false;
 
-					if(AUTParametrosConfiguracao_LD.PESQUISAR_POR_ELEMENTO) {
-						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR OBJETO (ELEMENTO GUI) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracao_LD.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));					
+					if(AUTParametrosConfiguracao.PESQUISAR_POR_ELEMENTO) {
+						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR OBJETO (ELEMENTO GUI) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));					
 
 					}
-					if(AUTParametrosConfiguracao_LD.PESQUISAR_POR_TEXTO){
-						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR TEXTO (CODIGO FONTE) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracao_LD.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));
-						System.out.println(String.format("AUT ANALISE FONTE : TEMPO TOTAL PREVISTO : %s : TEMPO ENTRE CICLOS: %s",AUTParametrosConfiguracao_LD.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA,
-								AUTParametrosConfiguracao_LD.TEMPO_ENTRE_CICLOS_VERIFICACAO));
-						java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(AUTParametrosConfiguracao_LD.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
-						AUTParametrosConfiguracao_LD.EVIDENCIAS_TEXTOS_ENCONTRADOS = new java.util.ArrayList<String>();
-						while(contCiclos <= AUTParametrosConfiguracao_LD.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA) {
+					if(AUTParametrosConfiguracao.PESQUISAR_POR_TEXTO){
+						System.out.println(String.format("AUT INFO : TIPO RESULTADO ESPERADO : POR TEXTO (CODIGO FONTE) : TIMEOUT DEFINIDO PELO TESTADOR: %s",AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA));
+						System.out.println(String.format("AUT ANALISE FONTE : TEMPO TOTAL PREVISTO : %s : TEMPO ENTRE CICLOS: %s",AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA,
+								AUTParametrosConfiguracao.TEMPO_ENTRE_CICLOS_VERIFICACAO));
+						java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
+						AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS = new java.util.ArrayList<String>();
+						while(contCiclos <= AUTParametrosConfiguracao.TEMPO_EM_SEGUNDOS_PARA_PESQUISA_SER_CONCLUIDA) {
 							java.util.regex.Matcher analise = null;
 
 							System.out.println(String.format("AUT INFO : TEMPO DE ANALISE: %s",contCiclos));
 
-							String conteudo = AUTParametrosConfiguracao_LD.DOC_DRIVER.getPageSource();
+							String conteudo = AUTParametrosConfiguracao.DOC_DRIVER.getPageSource();
 							if(conteudo!=null && !conteudo.isEmpty()) {								
 								analise = padrao.matcher(conteudo);							
 								while(analise.find()) {
 									//System.out.println(String.format("AUT RESULTADO: %s : ENCONTRADO",analise.group()));
-									AUTParametrosConfiguracao_LD.RESULTADO_FINAL_PESQUISA_TEXTO = true;
-									if(!AUTParametrosConfiguracao_LD.EVIDENCIAS_TEXTOS_ENCONTRADOS.contains(analise.group())) {
-										AUTParametrosConfiguracao_LD.EVIDENCIAS_TEXTOS_ENCONTRADOS.add(analise.group());
-										AUTParametrosConfiguracao_LD.RESULTADO_FINAL_PESQUISA_TEXTO = true;
-										AUTParametrosConfiguracao_LD.PESQUISA_FINALIZADA = true;
+									AUTParametrosConfiguracao.RESULTADO_FINAL_PESQUISA_TEXTO = true;
+									if(!AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS.contains(analise.group())) {
+										AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS.add(analise.group());
+										AUTParametrosConfiguracao.RESULTADO_FINAL_PESQUISA_TEXTO = true;
+										AUTParametrosConfiguracao.PESQUISA_FINALIZADA = true;
 
 										System.out.println("AUT STATUS FINAL PESQUISA POR TEXTO: SUCESSO : TEXTO ENCONTRADO");
 										//System.out.println(String.format("TEXTO PROCURADO: %s TEXTO ENCONTRADO: %s", AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR));
-										System.out.println(AUTParametrosConfiguracao_LD.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
+										System.out.println(AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
 										System.out.println("\nOcorrências:\n");
-										for(String item : AUTParametrosConfiguracao_LD.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
+										for(String item : AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
 											System.out.println("@@ - ".concat(item));
 										}
 										throw new AUTProcessCloseException("@@@@@ FIM DA PESQUISA : ITEM ENCONTRADO");
 									}
-									System.out.println(AUTParametrosConfiguracao_LD.EVIDENCIAS_TEXTOS_ENCONTRADOS.size());
+									System.out.println(AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS.size());
 								}
 
 							}
 
 							try {
-								java.lang.Thread.currentThread().sleep(AUTParametrosConfiguracao_LD.TEMPO_ENTRE_CICLOS_VERIFICACAO * 1000);
+								java.lang.Thread.currentThread().sleep(AUTParametrosConfiguracao.TEMPO_ENTRE_CICLOS_VERIFICACAO * 1000);
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 
-							contCiclos+= AUTParametrosConfiguracao_LD.TEMPO_ENTRE_CICLOS_VERIFICACAO;
+							contCiclos+= AUTParametrosConfiguracao.TEMPO_ENTRE_CICLOS_VERIFICACAO;
 						}
-						AUTParametrosConfiguracao_LD.PESQUISA_FINALIZADA = true;
+						AUTParametrosConfiguracao.PESQUISA_FINALIZADA = true;
 					}				
 				}
 			};
 			threadMonitor.run();
 			boolean bEnd = false;
 			while(!bEnd) {
-				bEnd = AUTParametrosConfiguracao_LD.PESQUISA_FINALIZADA;
+				bEnd = AUTParametrosConfiguracao.PESQUISA_FINALIZADA;
 				if(bEnd) {
-					if(AUTParametrosConfiguracao_LD.RESULTADO_FINAL_PESQUISA_TEXTO) {
+					if(AUTParametrosConfiguracao.RESULTADO_FINAL_PESQUISA_TEXTO) {
 						System.out.println("AUT STATUS FINAL PESQUISA POR TEXTO: SUCESSO : TEXTO ENCONTRADO");
 						//System.out.println(String.format("TEXTO PROCURADO: %s TEXTO ENCONTRADO: %s", AUTParametrosConfiguracaoSincronizacao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR));
-						System.out.println(AUTParametrosConfiguracao_LD.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
+						System.out.println(AUTParametrosConfiguracao.RESULTADO_PESQUISA_POR_TEXTO_EXP_REGULAR);
 						System.out.println("\nOcorrências:\n");
-						for(String item : AUTParametrosConfiguracao_LD.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
+						for(String item : AUTParametrosConfiguracao.EVIDENCIAS_TEXTOS_ENCONTRADOS) {
 							System.out.println("@@ - ".concat(item));
 						}
 						return true;
@@ -630,14 +630,14 @@ public class AUTVAUtilidades {
 	public static boolean fazerLoginConfirmacao(org.openqa.selenium.WebDriver docDriver,String usuario,String senha) {
 		try {
 
-			boolean loginConfirmacao = AUTVAUtilidades_LD.sincronizarStepPorTexto(10, docDriver, "(?i:<(div).{0,}\\W{0,}.{0,}class=.{0,}modal-enter(.{0,}\\W{0,}.{0,})reAuthentication.{0,}\\W{0,}.{0,}\\W{0,}.{0,}\\W{0,}Confirmação de Login.{0,})");
+			boolean loginConfirmacao = AUTVAUtilidades.sincronizarStepPorTexto(10, docDriver, "(?i:<(div).{0,}\\W{0,}.{0,}class=.{0,}modal-enter(.{0,}\\W{0,}.{0,})reAuthentication.{0,}\\W{0,}.{0,}\\W{0,}.{0,}\\W{0,}Confirmação de Login.{0,})");
 
 
 			if(loginConfirmacao) {
 				
-				AUTVAUtilidades_LD.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF_HOMOLOG_1_LD.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF_HOMOLOG_1_LD.docDriver, "input", "click", usuario, 0);
+				AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF_HOMOLOG_1.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF_HOMOLOG_1.docDriver, "input", "click", usuario, 0);
 				
-				java.util.List<org.openqa.selenium.WebElement> inputUsr = AUTVAUtilidades_LD.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}username.{0,}\\.{0,}\\>)");
+				java.util.List<org.openqa.selenium.WebElement> inputUsr = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}username.{0,}\\.{0,}\\>)");
 
 				for(org.openqa.selenium.WebElement input : inputUsr) {
 					try {
@@ -649,7 +649,7 @@ public class AUTVAUtilidades {
 					}
 				}
 				
-				java.util.List<org.openqa.selenium.WebElement> inputPWD = AUTVAUtilidades_LD.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}password.{0,}\\.{0,}\\>)");
+				java.util.List<org.openqa.selenium.WebElement> inputPWD = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}password.{0,}\\.{0,}\\>)");
 
 				for(org.openqa.selenium.WebElement pwd : inputPWD) {
 					try {
@@ -660,7 +660,7 @@ public class AUTVAUtilidades {
 					}
 				}
 				
-				java.util.List<org.openqa.selenium.WebElement> btsAvancar = AUTVAUtilidades_LD.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "button", "(?i:\\<(button).{0,}\\W{0,}.{0,}advancedReAutentication.{0,}\\W{0,}.{0,}\\>(.{0,}\\W{0,}.{0,})Avançar\\2{0,}\\<\\/\\1>)");
+				java.util.List<org.openqa.selenium.WebElement> btsAvancar = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "button", "(?i:\\<(button).{0,}\\W{0,}.{0,}advancedReAutentication.{0,}\\W{0,}.{0,}\\>(.{0,}\\W{0,}.{0,})Avançar\\2{0,}\\<\\/\\1>)");
 
 				for(org.openqa.selenium.WebElement bt : btsAvancar) {
 					try {
