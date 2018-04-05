@@ -22,11 +22,14 @@ public class AUTVAPedidos {
 		String usuarioLogin = AUTVAModuloCadastroClientesPF.MD_PARAMETROS_ENTRADA.get("PARAM_USUARIO_VA").toString(); 
 		String senhaLogin = AUTVAModuloCadastroClientesPF.MD_PARAMETROS_ENTRADA.get("PARAM_PWD_VA").toString();
 
+		java.util.HashMap<Object,Object> clientesPedido = (java.util.HashMap<Object,Object>)AUTVAModuloCadastroClientesPF.MD_PARAMETROS_SAIDA.get("CLIENTES");
+		
 		String materialCodigoProdPesquisa = "88282446";
 		String materialQuantProdPesquisa = "8";
-		String materialCodigoProdPedido = "88282446|89419400|89455163|88521034|";
-		String materialQuantPedido = "5|10|6|3|";		
+		String materialCodigoProdPedido = "88282446|89455163|88521034|";
+		String materialQuantPedido = "3|5|2|";		
 
+		
 		AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "a", "click", "carrinho", 0);
 
 		AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "a", "click", "Iniciar novo atendimento", 0);
@@ -108,5 +111,75 @@ public class AUTVAPedidos {
 		
 		AUTVAUtilidades.fazerLoginConfirmacao(AUTVAModuloCadastroClientesPF.docDriver, usuarioLogin, senhaLogin);
 		
+		
+
+		AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Busque um cliente cadastrado\\W{0,}.{0,}\\<.{0,}\\>");
+
+        
+		for(Object cliente : clientesPedido.values()) {
+			
+			java.util.List<org.openqa.selenium.WebElement> inputCliente = AUTVAUtilidades.procurarElementWebHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, (long)0.3, "input", "\\<(input).{0,}.{0,}name=\\\"document\\\".{0,}\\>");
+
+			for(org.openqa.selenium.WebElement input : inputCliente) {
+				try {
+					input.sendKeys(cliente.toString());
+					input.sendKeys("\n");			
+
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver,String.format("\\<.{0,}\\>.{0,}\\W{0,}%s\\W{0,}.{0,}\\<.{0,}\\>",cliente.toString()));
+					
+					
+					java.util.List<org.openqa.selenium.WebElement> opcoesCli = AUTVAUtilidades.procurarElementWebHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, (long)0.3, "span", String.format("(?i:\\<(span).{0,}\\W{0,}\\>%s\\<\\/\\1>)",cliente.toString()));
+					for(org.openqa.selenium.WebElement opCli : opcoesCli) {
+						try {
+							opCli.click();	
+						}
+						catch(java.lang.Exception e) {
+							
+						}
+					}
+
+					AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "button", "click", "Avançar", 0);
+
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}LM:\\W{0,}.{0,}\\<.{0,}\\>");					
+					
+					AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "button", "click", "Avançar", 0);
+
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Fluxo de Saída geral\\W{0,}.{0,}\\<.{0,}\\>");					
+					
+					
+					AUTVAModuloCadastroClientesPF.docDriver.findElementById("caixa").click();
+					
+					AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "button", "click", "Avançar", 0);
+
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar meio de pagamento\\W{0,}.{0,}\\<.{0,}\\>");					
+					
+					AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "button", "click", "Avançar", 0);
+					
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Resumo\\W{0,}.{0,}\\<.{0,}\\>");					
+
+					
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Endereço Cobrança\\W{0,}.{0,}\\<.{0,}\\>");					
+
+					
+					AUTVAUtilidades.executarMetodoElementoHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, "button", "click", "Finalizar", 0);
+
+					
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Identificação do cartão pedido\\W{0,}.{0,}\\<.{0,}\\>");					
+
+					AUTVAModuloCadastroClientesPF.docDriver.getKeyboard().sendKeys(Keys.ESCAPE);
+					
+					AUTVAUtilidades.sincronizarStepPorTexto(20, AUTVAModuloCadastroClientesPF.docDriver, "(?i:\\<.{0,}\\>.{0,}\\W{0,}Pedido.{0,}\\W\\d+.{0,})");					
+					String docOutCheckpoint = "CLIENTE : ".concat(cliente.toString().concat(" : CHECKPOINT-NUMERO DO PEDIDO"));
+					docOutCheckpoint = docOutCheckpoint.replaceAll("\\W", "-");
+					AUTVAUtilidades.capturarEvidencia(AUTVAModuloCadastroClientesPF.docDriver, docOutCheckpoint);
+										
+				}
+				catch(java.lang.Exception e) {
+					
+				}
+			
+			}			
+			
+		}
 	}
 }

@@ -630,7 +630,7 @@ public class AUTVAUtilidades {
 	public static boolean fazerLoginConfirmacao(org.openqa.selenium.WebDriver docDriver,String usuario,String senha) {
 		try {
 
-			boolean loginConfirmacao = AUTVAUtilidades.sincronizarStepPorTexto(6, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Confirmação de Login\\.\\.\\..{0,}\\<.{0,}\\>");
+			boolean loginConfirmacao = AUTVAUtilidades.sincronizarStepPorTexto(10, docDriver, "(?i:<(div).{0,}\\W{0,}.{0,}class=.{0,}modal-enter(.{0,}\\W{0,}.{0,})reAuthentication.{0,}\\W{0,}.{0,}\\W{0,}.{0,}\\W{0,}Confirmação de Login.{0,})");
 
 
 			if(loginConfirmacao) {
@@ -652,19 +652,26 @@ public class AUTVAUtilidades {
 				java.util.List<org.openqa.selenium.WebElement> inputPWD = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}password.{0,}\\.{0,}\\>)");
 
 				for(org.openqa.selenium.WebElement pwd : inputPWD) {
-					//pwd.clear();
-					pwd.sendKeys(senha);	
+					try {
+						pwd.sendKeys(senha);	
+					}
+					catch(java.lang.Exception e) {
+						
+					}
 				}
 				
-				java.util.List<org.openqa.selenium.WebElement> btAvanc = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(button).{0,}\\W{0,}id\\=.{0,}advancedReAutentication.{0,}\\.{0,}\\>)");
+				java.util.List<org.openqa.selenium.WebElement> btsAvancar = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "button", "(?i:\\<(button).{0,}\\W{0,}.{0,}advancedReAutentication.{0,}\\W{0,}.{0,}\\>(.{0,}\\W{0,}.{0,})Avançar\\2{0,}\\<\\/\\1>)");
 
-				btAvanc.get(0).click();
-				/*
-				for(org.openqa.selenium.WebElement pwd : inputPWD) {
-					pwd.sendKeys(senha);	
+				for(org.openqa.selenium.WebElement bt : btsAvancar) {
+					try {
+						bt.click();	
+					}
+					catch(java.lang.Exception e) {
+						
+					}
 				}
-				*/
 								
+				
 			}
 			else {
 
