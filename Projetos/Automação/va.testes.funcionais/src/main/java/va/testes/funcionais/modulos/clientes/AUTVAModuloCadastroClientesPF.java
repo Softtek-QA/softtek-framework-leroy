@@ -44,8 +44,8 @@ public class AUTVAModuloCadastroClientesPF {
 		chrOptions.addArguments("headless");
 		chrOptions.addArguments("window-size=1200x1024");
 
-		docDriver = new ChromeDriver(chrOptions);
-		//docDriver = new ChromeDriver();		
+		//docDriver = new ChromeDriver(chrOptions);
+		docDriver = new ChromeDriver();		
 
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
 		MD_PARAMETROS_ENTRADA = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
@@ -178,9 +178,6 @@ public class AUTVAModuloCadastroClientesPF {
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Num. Telefone", 0);
 
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("telefone-0-pf"), (long)0.5, clienteNumeroTelefone);
-
-			
-			
 
 			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 4"));
 			
