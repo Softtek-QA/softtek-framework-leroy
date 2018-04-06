@@ -3,7 +3,7 @@ package va.testes.funcionais.md;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import va.testes.funcionais.runtime.AUTParametrosConfiguracao_LD;
+import va.testes.funcionais.runtime.AUTParametrosConfiguracao;
 
 public class AUTDataLoader {
 
@@ -31,8 +31,8 @@ public class AUTDataLoader {
 		
 		System.out.println(params);
 
-		AUTParametrosConfiguracao_LD.MD_ID_PARAMS_CONFIG++;
-		AUTParametrosConfiguracao_LD.MD_PARAMETROS_CONFIGURACAO_DOS_TESTES.put((Object)AUTParametrosConfiguracao_LD.MD_ID_PARAMS_CONFIG, params);		
+		AUTParametrosConfiguracao.MD_ID_PARAMS_CONFIG++;
+		AUTParametrosConfiguracao.MD_PARAMETROS_CONFIGURACAO_DOS_TESTES.put((Object)AUTParametrosConfiguracao.MD_ID_PARAMS_CONFIG, params);		
 		
 		return params;			
 	}
