@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -23,8 +24,9 @@ import org.openqa.selenium.remote.RemoteExecuteMethod;
 import org.openqa.selenium.remote.RemoteKeyboard;
 
 import va.testes.funcionais.md.AUTDataLoader;
+import va.testes.funcionais.utils.AUTTestObject;
 import va.testes.funcionais.utils.AUTVAUtilidades;
-public class AUTVAModuloCadastroClientesPF {
+public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 	/**
 	 * 
 	 * Massa de dados do teste
@@ -32,20 +34,16 @@ public class AUTVAModuloCadastroClientesPF {
 	 */
 	public static java.util.HashMap<Object,Object> MD_PARAMETROS_ENTRADA;
 	public static java.util.HashMap<Object,Object> MD_PARAMETROS_SAIDA;
-	public static ChromeDriver docDriver = null;
-	public static ChromeOptions chrOptions = null;
+
+	
+	@Before
+	public void testInit(){
+		System.out.println("AUT INFO  : INICIALIZACAO MOD CADASTRO");
+	}
 	
 	@Test
-	public void test() throws IOException, InterruptedException {
+	public void test() throws IOException, InterruptedException {				
 		
-		System.setProperty("webdriver.chrome.driver", "../va.testes.funcionais/src/main/resources/chromedriver.exe");
-		chrOptions = new ChromeOptions();
-
-		chrOptions.addArguments("headless");
-		chrOptions.addArguments("window-size=1200x1024");
-
-		//docDriver = new ChromeDriver(chrOptions);
-		docDriver = new ChromeDriver();		
 
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
 		MD_PARAMETROS_ENTRADA = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
@@ -248,7 +246,7 @@ public class AUTVAModuloCadastroClientesPF {
 			java.lang.Thread.currentThread().sleep(4000);
 			docDriver.findElementById("mala-direta-sim-pf").click();
 
-			AUTVAUtilidades.procurarElementWebHTML(AUTVAModuloCadastroClientesPF.docDriver.getClass().getName(), AUTVAModuloCadastroClientesPF.docDriver, (long)0.3, "input", "(?i:<(input).{0,}mala\\-{0,}direta\\-{0,}sim\\-pf.{0,}>)").get(0).click();
+			AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:<(input).{0,}mala\\-{0,}direta\\-{0,}sim\\-pf.{0,}>)").get(0).click();
 
 			docDriver.getKeyboard().sendKeys("\t");
 
@@ -265,8 +263,7 @@ public class AUTVAModuloCadastroClientesPF {
 			docDriver.executeScript("cont=0;tot=document.getElementsByTagName(\"strong\").length;itens=document.getElementsByTagName(\"strong\");while(cont<tot){console.log(itens[cont]);cont++;}");
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
-			 
-			
+			 		
 			AUTVAUtilidades.capturarEvidencia(docDriver,  clienteCorrente.toString().concat(" - ").concat("CHECKPOINT - CADASTRO CLIENTE"));
 			contClientes++;
 		}
