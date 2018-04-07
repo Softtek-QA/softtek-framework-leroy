@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import va.testes.funcionais.utils.AUTVAUtilidades;
+import va.testes.funcionais.utils.AUTVAUtilidades.*;
+
 
 /**
  * 
@@ -14,7 +17,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
  * @author Softtek - QA
  *
  */
-public class AUTTestObject {
+public class AUTTestObject{
 
 	/**
 	 * 
@@ -23,235 +26,6 @@ public class AUTTestObject {
 	 * @author Softtek - QA
 	 *
 	 */
-	public static class AUTLogMensagem{
-		/**
-		 * 
-		 * Objeto arquivo (IO) - Log de Mensagens
-		 * 
-		 */
-		private java.io.File fileLogDinamic;
-		java.io.FileOutputStream fileLogPadrao;
-		java.io.BufferedOutputStream buffOutputLogPadrao;
-		Integer numeroMaxLinhasLog = 5;
-		
-		/**
-		 * 
-		 * Caminho do arquivo de dados associado ao gerenciador de logs
-		 * 
-		 */
-		private String caminhoArquivoDinamico = "/va.testes.funcionais/logs/%s.txt";
-		private String caminhoArquivoPadrao = "/va.testes.funcionais/logs/AUTLOG001.txt";
-		/**
-		 * 
-		 * Variável de configuração do modo de operação do log(visual, arquivos)
-		 * 
-		 */
-		private boolean exibirMensagemConsole = true;
-				
-		
-		public static enum AUT_TIPO_MSG_LOG{
-			/**
-			 * 
-			 * MENSAGEM INFORMATIVA PARA O USUARIO
-			 * 
-			 */
-			MENSAGEM_INFORMATIVA,
-			/**
-			 * 
-			 * MENSAGEM DE ALERTA PARA O USUARIO
-			 * 
-			 */
-			MENSAGEM_ALERTA_USUARIO,
-			/**
-			 * 
-			 * MENSAGEM PARA INFORMAR UM ERRO TESTE
-			 * 
-			 */
-			MENSAGEM_ERRO_TESTE,
-			
-			/**
-			 * 
-			 * 
-			 * MENSAGEM PARA INFORMAR UM ERRO NO SISTEMA
-			 * 
-			 */
-			MENSAGEM_ERRO_SISTEMA;
-			
-			@Override
-			public String toString() {
-				switch(this) {
-					case MENSAGEM_ALERTA_USUARIO:{
-						
-						return "ATENCAO USUARIO";
-					}
-					case MENSAGEM_ERRO_SISTEMA:{
-						
-						return "ERRO NO SISTEMA";
-					}			
-					case MENSAGEM_ERRO_TESTE:{
-						
-						return "ERRO NO CASO DE TESTES: FALHOU";
-					}
-					case MENSAGEM_INFORMATIVA:{
-						
-						return "INFORMACAO";
-					}
-				}
-				
-				return "";
-			}
-		}
-
-
-		
-		/**
-		 * 
-		 * Habilita a exibição de mensagens no console de saída padrão do sistema
-		 * 
-		 */
-		public void habilitarExibicaoLogMsg() {
-			exibirMensagemConsole = true;
-		}
-		
-		/**
-		 * 
-		 * Desabilita a exibição de mensagens no log de saída padrão do sistema
-		 * 
-		 * 
-		 */
-		public void desabilitarExibicaoLogMsg() {
-			exibirMensagemConsole = false;
-		}
-		
-		/**
-		 * 
-		 * Verifica o status de configuração do log de mensagens padrão do sistema
-		 * 
-		 * @return boolean - Retorna true (exibição de mensagens no console habilitada), caso contrário false
-		 * 
-		 */
-		public  boolean exibicaoLogHabilitada() {
-			return exibirMensagemConsole;
-		}
-		
-				
-		/**
-		 * 
-		 * Registra mensagem no arquivo de log e direciona para o console de saída padrão
-		 * 		
-		 * @param tipoMensagem - Tipo da mensagem
-		 * @param mensagem - Mensagem que será registrada no log do sistema
-		 * 
-		 */
-		public void logMensagem(AUT_TIPO_MSG_LOG tipoMensagem,Object mensagem) {
-			String formatMsg = "";
-						
-			switch(tipoMensagem) {
-				case MENSAGEM_ALERTA_USUARIO:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
-					
-					break;
-				}
-				case MENSAGEM_ERRO_SISTEMA:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
-					
-					break;
-				}
-				case MENSAGEM_ERRO_TESTE:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
-
-					break;
-				}
-				case MENSAGEM_INFORMATIVA:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
-
-					break;
-				}			
-			}
-		}
-		
-		public void logMensagem(Object mensagem) {
-			logMensagem(AUT_TIPO_MSG_LOG.MENSAGEM_INFORMATIVA, mensagem);
-		}
-		
-		
-		public void registrarLog(String mensagem) {
-			try {
-				buffOutputLogPadrao.write(mensagem.getBytes());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		/**
-		 * 
-		 * Configurações de inicialização da classe
-		 * 
-		 */
-		public void configInit() {
-			try {
-				
-				System.out.println("AUT INFO : CRIANDO ARQUIVO DE LOGS DO SISTEMA");
-				
-				fileLogPadrao = new java.io.FileOutputStream(caminhoArquivoPadrao);
-				
-				buffOutputLogPadrao = new java.io.BufferedOutputStream(fileLogPadrao);
-				
-				
-			} catch (FileNotFoundException e) {
-				
-				System.out.println("AUT INIT DATA ERROR: INICIALIZACAO DO ARQUIVO DE LOG");
-				
-				System.out.println(e.getMessage());
-				
-				e.printStackTrace();
-			}
-		
-			System.out.println("AUT INFO : CONFIGURANDO VARIAVEIS AMBIENTE");
-
-			/******************** CONFIGURACAO DE VARIÁVEIS AMBIENTE **********************/
-			
-			
-		}
-		/**
-		 * Construtor padrão da classe
-		 */
-		public AUTLogMensagem() {
-			configInit();
-		}
-	}
 
 
 	public static ChromeDriver docDriver = null;
@@ -340,7 +114,7 @@ public class AUTTestObject {
 			System.setProperty("webdriver.chrome.driver", "../va.testes.funcionais/src/main/resources/chromedriver.exe");
 
 			chrOptions = new ChromeOptions();
-
+			
 			docDriver = new org.openqa.selenium.chrome.ChromeDriver();
 		}
 

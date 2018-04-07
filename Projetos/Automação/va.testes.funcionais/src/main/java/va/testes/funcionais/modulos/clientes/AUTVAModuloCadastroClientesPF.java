@@ -38,6 +38,7 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 	
 	@Before
 	public void testInit(){
+		
 		System.out.println("AUT INFO  : INICIALIZACAO MOD CADASTRO");
 	}
 	
@@ -49,7 +50,6 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 		MD_PARAMETROS_ENTRADA = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
 		java.util.HashMap<Object, Object> parametrosTeste = MD_PARAMETROS_ENTRADA;
 
-		
 		String urlInit = parametrosTeste.get("LINK_APLICACAO_WEB").toString();
 		String usuarioLogin = parametrosTeste.get("PARAM_USUARIO_VA").toString();
 		String senhaLogin = parametrosTeste.get("PARAM_PWD_VA").toString();
