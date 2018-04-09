@@ -111,11 +111,13 @@ public class AUTTestObject{
 	public org.openqa.selenium.chrome.ChromeDriver configurarBrowserChromeMDVisual(){
 
 		if(docDriver==null) {
+			
 			System.setProperty("webdriver.chrome.driver", "../va.testes.funcionais/src/main/resources/chromedriver.exe");
 
 			chrOptions = new ChromeOptions();
 			
 			docDriver = new org.openqa.selenium.chrome.ChromeDriver();
+			
 		}
 
 

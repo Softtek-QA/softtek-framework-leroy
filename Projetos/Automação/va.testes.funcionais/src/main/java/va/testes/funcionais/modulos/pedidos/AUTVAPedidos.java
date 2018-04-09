@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF;
 import va.testes.funcionais.utils.AUTTestObject;
 import va.testes.funcionais.utils.AUTVAUtilidades;
+import va.testes.funcionais.utils.AUTVAUtilidades.AUT_TIPO_FLUXO_SAIDA;
 
 
 public class AUTVAPedidos extends AUTTestObject{
@@ -30,7 +31,9 @@ public class AUTVAPedidos extends AUTTestObject{
 		String materialQuantProdPesquisa = "8";
 		String materialCodigoProdPedido = "88282446|89455163|88521034|";
 		String materialQuantPedido = "3|5|2|";		
-
+		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA;
+		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA.toString();
+		
 		
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "carrinho", 0);
 
@@ -157,8 +160,69 @@ public class AUTVAPedidos extends AUTTestObject{
 
 					java.lang.Thread.currentThread().sleep(3000);
 
-					docDriver.findElementById("caixa").click();
-
+					switch(materialTipoSaida) {
+					case CAIXA:{
+						
+						docDriver.findElementById("caixa").click();
+						
+						break;
+					}
+					case ENTREGA:{
+						
+						docDriver.findElementById("entrega").click();
+						
+						break;
+					}
+					case ENTREGA_ECONOMICA:{
+						
+						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.ENTREGA_ECONOMICA.toString()));
+						
+						break;
+					}
+					case ENTREGA_EXPRESSA:{
+						
+						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.ENTREGA_EXPRESSA.toString()));
+											
+						break;
+					}
+					case RETIRADA:{
+						
+						docDriver.findElementById("retirada").click();
+						
+						break;
+					}
+					case RETIRADA_EXTERNA_AGENDADA:{
+						
+						java.util.List<org.openqa.selenium.WebElement> listaOpcoesFluxoSaida = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionType\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
+						
+						for(org.openqa.selenium.WebElement itemFluxoSd : listaOpcoesFluxoSaida) {
+							
+							itemFluxoSd.click();
+							itemFluxoSd.sendKeys(materialTipoSaidaAux);
+							
+							java.lang.Thread.currentThread().sleep(2000);
+						}						
+						
+						break;
+					}
+					case RETIRADA_EXTERNA_IMEDIATA:{
+						
+						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA.toString()));
+						
+						break;
+					}
+					case RETIRADA_INTERNA_IMEDIATA:{
+						
+						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA.toString()));
+						
+						break;
+					}
+					}
+					
+					
+					
+					
+					/**
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
 					AUTVAUtilidades.sincronizarStepPorTexto(20, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar meio de pagamento\\W{0,}.{0,}\\<.{0,}\\>");					
@@ -194,8 +258,7 @@ public class AUTVAPedidos extends AUTTestObject{
 
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Iniciar novo atendimento", 0);
 
-
-
+**/
 				}
 				catch(java.lang.Exception e) {
 

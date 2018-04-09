@@ -24,8 +24,15 @@ import org.openqa.selenium.opera.OperaDriver;
 import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF;
 import va.testes.funcionais.runtime.*;
 
-public class AUTVAUtilidades {
-	
+public class AUTVAUtilidades {	
+
+
+	/**
+	 * Classe responsável pelo gerenciamento de logs dos sistema
+	 * 
+	 * @author Softtek - QA
+	 *
+	 */
 	public static class AUTLogMensagem{
 		/**
 		 * 
@@ -36,7 +43,7 @@ public class AUTVAUtilidades {
 		java.io.FileOutputStream fileLogPadrao;
 		java.io.BufferedOutputStream buffOutputLogPadrao;
 		Integer numeroMaxLinhasLog = 5;
-		
+
 		/**
 		 * 
 		 * Caminho do arquivo de dados associado ao gerenciador de logs
@@ -50,8 +57,8 @@ public class AUTVAUtilidades {
 		 * 
 		 */
 		private boolean exibirMensagemConsole = true;
-				
-		
+
+
 		public static enum AUT_TIPO_MSG_LOG{
 			/**
 			 * 
@@ -71,7 +78,7 @@ public class AUTVAUtilidades {
 			 * 
 			 */
 			MENSAGEM_ERRO_TESTE,
-			
+
 			/**
 			 * 
 			 * 
@@ -79,34 +86,34 @@ public class AUTVAUtilidades {
 			 * 
 			 */
 			MENSAGEM_ERRO_SISTEMA;
-			
+
 			@Override
 			public String toString() {
 				switch(this) {
-					case MENSAGEM_ALERTA_USUARIO:{
-						
-						return "ATENCAO USUARIO";
-					}
-					case MENSAGEM_ERRO_SISTEMA:{
-						
-						return "ERRO NO SISTEMA";
-					}			
-					case MENSAGEM_ERRO_TESTE:{
-						
-						return "ERRO NO CASO DE TESTES: FALHOU";
-					}
-					case MENSAGEM_INFORMATIVA:{
-						
-						return "INFORMACAO";
-					}
+				case MENSAGEM_ALERTA_USUARIO:{
+
+					return "ATENCAO USUARIO";
 				}
-				
+				case MENSAGEM_ERRO_SISTEMA:{
+
+					return "ERRO NO SISTEMA";
+				}			
+				case MENSAGEM_ERRO_TESTE:{
+
+					return "ERRO NO CASO DE TESTES: FALHOU";
+				}
+				case MENSAGEM_INFORMATIVA:{
+
+					return "INFORMACAO";
+				}
+				}
+
 				return "";
 			}
 		}
 
 
-		
+
 		/**
 		 * 
 		 * Habilita a exibição de mensagens no console de saída padrão do sistema
@@ -115,7 +122,7 @@ public class AUTVAUtilidades {
 		public void habilitarExibicaoLogMsg() {
 			exibirMensagemConsole = true;
 		}
-		
+
 		/**
 		 * 
 		 * Desabilita a exibição de mensagens no log de saída padrão do sistema
@@ -125,7 +132,7 @@ public class AUTVAUtilidades {
 		public void desabilitarExibicaoLogMsg() {
 			exibirMensagemConsole = false;
 		}
-		
+
 		/**
 		 * 
 		 * Verifica o status de configuração do log de mensagens padrão do sistema
@@ -136,8 +143,8 @@ public class AUTVAUtilidades {
 		public  boolean exibicaoLogHabilitada() {
 			return exibirMensagemConsole;
 		}
-		
-				
+
+
 		/**
 		 * 
 		 * Registra mensagem no arquivo de log e direciona para o console de saída padrão
@@ -148,68 +155,79 @@ public class AUTVAUtilidades {
 		 */
 		public void logMensagem(AUT_TIPO_MSG_LOG tipoMensagem,Object mensagem) {
 			String formatMsg = "";
-						
+
 			switch(tipoMensagem) {
-				case MENSAGEM_ALERTA_USUARIO:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
-					
-					break;
-				}
-				case MENSAGEM_ERRO_SISTEMA:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
-					
-					break;
-				}
-				case MENSAGEM_ERRO_TESTE:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
+			case MENSAGEM_ALERTA_USUARIO:{
 
-					break;
-				}
-				case MENSAGEM_INFORMATIVA:{
-					
-					formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
-					
-					if(exibicaoLogHabilitada()) {
-						System.out.println(formatMsg);
-					}
-					else {						
-						//registrarLog(formatMsg);
-					}
+				formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
 
-					break;
-				}			
+				if(exibicaoLogHabilitada()) {
+					System.out.println(formatMsg);
+				}
+				else {						
+					//registrarLog(formatMsg);
+				}
+
+				break;
+			}
+			case MENSAGEM_ERRO_SISTEMA:{
+
+				formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
+
+				if(exibicaoLogHabilitada()) {
+					System.out.println(formatMsg);
+				}
+				else {						
+					//registrarLog(formatMsg);
+				}
+
+				break;
+			}
+			case MENSAGEM_ERRO_TESTE:{
+
+				formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
+
+				if(exibicaoLogHabilitada()) {
+					System.out.println(formatMsg);
+				}
+				else {						
+					//registrarLog(formatMsg);
+				}
+
+				break;
+			}
+			case MENSAGEM_INFORMATIVA:{
+
+				formatMsg = String.format("TIPO MSG: %s : MENSAGEM : %s", tipoMensagem.toString(),mensagem.toString());
+
+				if(exibicaoLogHabilitada()) {
+					System.out.println(formatMsg);
+				}
+				else {						
+					//registrarLog(formatMsg);
+				}
+
+				break;
+			}			
 			}
 		}
-		
+
+
+		/**
+		 * 
+		 * Registra log de mensagem no formato padrão
+		 * 
+		 * 
+		 * Tipo padrão : AUT_TIPO_MSG_LOG.MENSAGEM_INFORMATIVA
+		 * 
+		 * @param mensagem - Mensagem de envio para log
+		 * 
+		 */
 		public void logMensagem(Object mensagem) {
 			logMensagem(AUT_TIPO_MSG_LOG.MENSAGEM_INFORMATIVA, mensagem);
 		}
-		
-		
+
+
 		public void registrarLog(String mensagem) {
 			try {
 				buffOutputLogPadrao.write(mensagem.getBytes());
@@ -225,28 +243,28 @@ public class AUTVAUtilidades {
 		 */
 		public void configInit() {
 			try {
-				
+
 				System.out.println("AUT INFO : CRIANDO ARQUIVO DE LOGS DO SISTEMA");
-				
+
 				fileLogPadrao = new java.io.FileOutputStream(caminhoArquivoPadrao);
-				
+
 				buffOutputLogPadrao = new java.io.BufferedOutputStream(fileLogPadrao);
-				
-				
+
+
 			} catch (FileNotFoundException e) {
-				
+
 				System.out.println("AUT INIT DATA ERROR: INICIALIZACAO DO ARQUIVO DE LOG");
-				
+
 				System.out.println(e.getMessage());
-				
+
 				e.printStackTrace();
 			}
-		
+
 			System.out.println("AUT INFO : CONFIGURANDO VARIAVEIS AMBIENTE");
 
 			/******************** CONFIGURACAO DE VARIÁVEIS AMBIENTE **********************/
-			
-			
+
+
 		}
 		/**
 		 * Construtor padrão da classe
@@ -257,12 +275,23 @@ public class AUTVAUtilidades {
 	}
 
 
-/**
- * Classe responsável pelo desenvolvimento de expressões regulares para teste e formatação de dados
- * 
- * @author Softtek - QA
- *
- */
+	/**
+	 * 
+	 * Classe de serviços publicados 
+	 * 
+	 * @author Softtek - QA
+	 *
+	 */
+	public static abstract class AUTTestServices{
+
+	}
+
+	/**
+	 * Classe responsável pelo desenvolvimento de expressões regulares para teste e formatação de dados
+	 * 
+	 * @author Softtek - QA
+	 *
+	 */
 	/**
 	 * Define os tipos de saída de mercadoria possíveis
 	 * 
@@ -270,28 +299,28 @@ public class AUTVAUtilidades {
 	 *
 	 */
 	public static enum AUT_TIPO_FLUXO_SAIDA{
-		
+
 		/**
 		 * 
 		 * SAIDA DE CAIXA
 		 * 
 		 */
 		CAIXA,
-		
+
 		/**
 		 * 
 		 * RETIRADA NA LOJA
 		 * 
 		 */
 		RETIRADA,
-		
+
 		/**
 		 * 
 		 * ENTREGA A DOMICILIO
 		 * 
 		 */
 		ENTREGA,
-		
+
 		/**
 		 * 
 		 * RETIDA NA LOJA EXTERNA AGENDADA
@@ -308,20 +337,52 @@ public class AUTVAUtilidades {
 		 * RETIRADA EXTERNA NO MOMENTO DA COMPRA
 		 */
 		RETIRADA_EXTERNA_IMEDIATA,
-		
+
 		/**
 		 * 
 		 * ENTREGA EXPRESSA
 		 * 
 		 */
 		ENTREGA_EXPRESSA,
-		ENTREGA_ECONOMICA
+		ENTREGA_ECONOMICA;
+
+		@Override
+		public String toString() {
+			switch(this) {
+			case CAIXA:{			
+				return "CAIXA";
+			}			
+			case ENTREGA:{				
+				return "ENTREGA";
+			}
+			case ENTREGA_ECONOMICA:{			
+				return "ENTREGA ECONOMICA";
+			}
+			case ENTREGA_EXPRESSA:{			
+				return "ENTREGA EXPRESSA";
+			}
+			case RETIRADA:{				
+				return "RETIRADA";
+			}
+			case RETIRADA_EXTERNA_AGENDADA:{				
+				return "Retirada externa agendada";
+			}
+			case RETIRADA_EXTERNA_IMEDIATA:{				
+				return "Retirada externa imediata";				
+			}
+			case RETIRADA_INTERNA_IMEDIATA:{			
+				return "Retirada interna imediata";
+			}
+			}
+
+			return "";
+		}
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	/**
 	 * 
 	 * Extrai e imprime de forma padronizada mensagens de erro geradas pelo sistema
@@ -936,9 +997,9 @@ public class AUTVAUtilidades {
 
 
 			if(loginConfirmacao) {
-				
+
 				AUTVAUtilidades.executarMetodoElementoHTML(testeObject.docDriver.getClass().getName(), testeObject.docDriver, "input", "click", usuario, 0);
-				
+
 				java.util.List<org.openqa.selenium.WebElement> inputUsr = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}username.{0,}\\.{0,}\\>)");
 
 				for(org.openqa.selenium.WebElement input : inputUsr) {
@@ -947,10 +1008,10 @@ public class AUTVAUtilidades {
 					}
 					catch(java.lang.Exception e) 
 					{
-						
+
 					}
 				}
-				
+
 				java.util.List<org.openqa.selenium.WebElement> inputPWD = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:\\<(input).{0,}\\W{0,}name\\=.{0,}password.{0,}\\.{0,}\\>)");
 
 				for(org.openqa.selenium.WebElement pwd : inputPWD) {
@@ -958,10 +1019,10 @@ public class AUTVAUtilidades {
 						pwd.sendKeys(senha);	
 					}
 					catch(java.lang.Exception e) {
-						
+
 					}
 				}
-				
+
 				java.util.List<org.openqa.selenium.WebElement> btsAvancar = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "button", "(?i:\\<(button).{0,}\\W{0,}.{0,}advancedReAutentication.{0,}\\W{0,}.{0,}\\>(.{0,}\\W{0,}.{0,})Avançar\\2{0,}\\<\\/\\1>)");
 
 				for(org.openqa.selenium.WebElement bt : btsAvancar) {
@@ -969,11 +1030,11 @@ public class AUTVAUtilidades {
 						bt.click();	
 					}
 					catch(java.lang.Exception e) {
-						
+
 					}
 				}
-								
-				
+
+
 			}
 			else {
 
