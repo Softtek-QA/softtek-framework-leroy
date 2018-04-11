@@ -378,7 +378,258 @@ public class AUTVAUtilidades {
 	}
 
 
+	/**
+	 * 
+	 * Relação de lojas e Centrais de distribuição cadastradas no sistema
+	 * 
+	 * @author Softtek - QA
+	 *
+	 */
+	public static enum AUT_TIPO_LOJA{
+		LJ_OU_CD_0001,
+		LJ_OU_CD_0002,
+		LJ_OU_CD_0003,
+		LJ_OU_CD_0004,
+		LJ_OU_CD_0005,
+		LJ_OU_CD_0007,
+		LJ_OU_CD_0008,
+		LJ_OU_CD_0009,
+		LJ_OU_CD_0010,
+		LJ_OU_CD_0011,
+		LJ_OU_CD_0012,
+		LJ_OU_CD_0013,
+		LJ_OU_CD_0014,
+		LJ_OU_CD_0015,
+		LJ_OU_CD_0016,
+		LJ_OU_CD_0017,
+		LJ_OU_CD_0018,
+		LJ_OU_CD_0019,
+		LJ_OU_CD_0020,
+		LJ_OU_CD_0021,
+		LJ_OU_CD_0022,
+		LJ_OU_CD_0023,
+		LJ_OU_CD_0024,
+		LJ_OU_CD_0025,
+		LJ_OU_CD_0026,
+		LJ_OU_CD_0027,
+		LJ_OU_CD_0028,
+		LJ_OU_CD_0029,
+		LJ_OU_CD_0030,
+		LJ_OU_CD_0031,
+		LJ_OU_CD_0032,
+		LJ_OU_CD_0033,
+		LJ_OU_CD_0034,
+		LJ_OU_CD_0035,
+		LJ_OU_CD_0036,
+		LJ_OU_CD_0037,
+		LJ_OU_CD_0038,
+		LJ_OU_CD_0039,
+		LJ_OU_CD_0040,
+		LJ_OU_CD_0041,
+		LJ_OU_CD_0042,
+		LJ_OU_CD_0043,
+		LJ_OU_CD_0044,
+		LJ_OU_CD_0045,
+		LJ_OU_CD_0046,
+		LJ_OU_CD_0047,
+		LJ_OU_CD_0048,
+		LJ_OU_CD_0049,
+		LJ_OU_CD_0050,
+		LJ_OU_CD_0051,
+		LJ_OU_CD_0052,
+		LJ_OU_CD_0053,
+		LJ_OU_CD_0055,
+		LJ_OU_CD_0056,
+		LJ_OU_CD_0057,
+		LJ_OU_CD_0058,
+		LJ_OU_CD_0201,
+		LJ_OU_CD_0519,
+		LJ_OU_CD_0802,
+		LJ_OU_CD_0999,
+		LJ_OU_CD_CD01,
+		LJ_OU_CD_LOJ1,
+		LJ_OU_CD_XD01,
+		LJ_OU_CD_ZAC1,
+		LJ_OU_CD_ZAL1,
+		LJ_OU_CD_ZAM1,
+		LJ_OU_CD_ZAP1,
+		LJ_OU_CD_ZBA1,
+		LJ_OU_CD_ZCE1,
+		LJ_OU_CD_ZDF1,
+		LJ_OU_CD_ZES1,
+		LJ_OU_CD_ZGO1,
+		LJ_OU_CD_ZMA1,
+		LJ_OU_CD_ZMG1,
+		LJ_OU_CD_ZMS1,
+		LJ_OU_CD_ZMT1,
+		LJ_OU_CD_ZPA1,
+		LJ_OU_CD_ZPB1,
+		LJ_OU_CD_ZPE1,
+		LJ_OU_CD_ZPI1,
+		LJ_OU_CD_ZPR1,
+		LJ_OU_CD_ZRJ1,
+		LJ_OU_CD_ZRN1,
+		LJ_OU_CD_ZRO1,
+		LJ_OU_CD_ZRR1,
+		LJ_OU_CD_ZRS1,
+		LJ_OU_CD_ZSC1,
+		LJ_OU_CD_ZSE1,
+		LJ_OU_CD_ZSP1,
+		LJ_OU_CD_ZTO1;
+		
+		@Override
+		public String toString() {
+			
+			switch(this) {
+			case LJ_OU_CD_0001: { return "0001"; }
+			case LJ_OU_CD_0002: { return "0002"; }
+			case LJ_OU_CD_0003: { return "0003"; }
+			case LJ_OU_CD_0004: { return "0004"; }
+			case LJ_OU_CD_0005: { return "0005"; }
+			case LJ_OU_CD_0007: { return "0007"; }
+			case LJ_OU_CD_0008: { return "0008"; }
+			case LJ_OU_CD_0009: { return "0009"; }
+			case LJ_OU_CD_0010: { return "0010"; }
+			case LJ_OU_CD_0011: { return "0011"; }
+			case LJ_OU_CD_0012: { return "0012"; }
+			case LJ_OU_CD_0013: { return "0013"; }
+			case LJ_OU_CD_0014: { return "0014"; }
+			case LJ_OU_CD_0015: { return "0015"; }
+			case LJ_OU_CD_0016: { return "0016"; }
+			case LJ_OU_CD_0017: { return "0017"; }
+			case LJ_OU_CD_0018: { return "0018"; }
+			case LJ_OU_CD_0019: { return "0019"; }
+			case LJ_OU_CD_0020: { return "0020"; }
+			case LJ_OU_CD_0021: { return "0021"; }
+			case LJ_OU_CD_0022: { return "0022"; }
+			case LJ_OU_CD_0023: { return "0023"; }
+			case LJ_OU_CD_0024: { return "0024"; }
+			case LJ_OU_CD_0025: { return "0025"; }
+			case LJ_OU_CD_0026: { return "0026"; }
+			case LJ_OU_CD_0027: { return "0027"; }
+			case LJ_OU_CD_0028: { return "0028"; }
+			case LJ_OU_CD_0029: { return "0029"; }
+			case LJ_OU_CD_0030: { return "0030"; }
+			case LJ_OU_CD_0031: { return "0031"; }
+			case LJ_OU_CD_0032: { return "0032"; }
+			case LJ_OU_CD_0033: { return "0033"; }
+			case LJ_OU_CD_0034: { return "0034"; }
+			case LJ_OU_CD_0035: { return "0035"; }
+			case LJ_OU_CD_0036: { return "0036"; }
+			case LJ_OU_CD_0037: { return "0037"; }
+			case LJ_OU_CD_0038: { return "0038"; }
+			case LJ_OU_CD_0039: { return "0039"; }
+			case LJ_OU_CD_0040: { return "0040"; }
+			case LJ_OU_CD_0041: { return "0041"; }
+			case LJ_OU_CD_0042: { return "0042"; }
+			case LJ_OU_CD_0043: { return "0043"; }
+			case LJ_OU_CD_0044: { return "0044"; }
+			case LJ_OU_CD_0045: { return "0045"; }
+			case LJ_OU_CD_0046: { return "0046"; }
+			case LJ_OU_CD_0047: { return "0047"; }
+			case LJ_OU_CD_0048: { return "0048"; }
+			case LJ_OU_CD_0049: { return "0049"; }
+			case LJ_OU_CD_0050: { return "0050"; }
+			case LJ_OU_CD_0051: { return "0051"; }
+			case LJ_OU_CD_0052: { return "0052"; }
+			case LJ_OU_CD_0053: { return "0053"; }
+			case LJ_OU_CD_0055: { return "0055"; }
+			case LJ_OU_CD_0056: { return "0056"; }
+			case LJ_OU_CD_0057: { return "0057"; }
+			case LJ_OU_CD_0058: { return "0058"; }
+			case LJ_OU_CD_0201: { return "0201"; }
+			case LJ_OU_CD_0519: { return "0519"; }
+			case LJ_OU_CD_0802: { return "0802"; }
+			case LJ_OU_CD_0999: { return "0999"; }
+			case LJ_OU_CD_CD01: { return "CD01"; }
+			case LJ_OU_CD_LOJ1: { return "LOJ1"; }
+			case LJ_OU_CD_XD01: { return "XD01"; }
+			case LJ_OU_CD_ZAC1: { return "ZAC1"; }
+			case LJ_OU_CD_ZAL1: { return "ZAL1"; }
+			case LJ_OU_CD_ZAM1: { return "ZAM1"; }
+			case LJ_OU_CD_ZAP1: { return "ZAP1"; }
+			case LJ_OU_CD_ZBA1: { return "ZBA1"; }
+			case LJ_OU_CD_ZCE1: { return "ZCE1"; }
+			case LJ_OU_CD_ZDF1: { return "ZDF1"; }
+			case LJ_OU_CD_ZES1: { return "ZES1"; }
+			case LJ_OU_CD_ZGO1: { return "ZGO1"; }
+			case LJ_OU_CD_ZMA1: { return "ZMA1"; }
+			case LJ_OU_CD_ZMG1: { return "ZMG1"; }
+			case LJ_OU_CD_ZMS1: { return "ZMS1"; }
+			case LJ_OU_CD_ZMT1: { return "ZMT1"; }
+			case LJ_OU_CD_ZPA1: { return "ZPA1"; }
+			case LJ_OU_CD_ZPB1: { return "ZPB1"; }
+			case LJ_OU_CD_ZPE1: { return "ZPE1"; }
+			case LJ_OU_CD_ZPI1: { return "ZPI1"; }
+			case LJ_OU_CD_ZPR1: { return "ZPR1"; }
+			case LJ_OU_CD_ZRJ1: { return "ZRJ1"; }
+			case LJ_OU_CD_ZRN1: { return "ZRN1"; }
+			case LJ_OU_CD_ZRO1: { return "ZRO1"; }
+			case LJ_OU_CD_ZRR1: { return "ZRR1"; }
+			case LJ_OU_CD_ZRS1: { return "ZRS1"; }
+			case LJ_OU_CD_ZSC1: { return "ZSC1"; }
+			case LJ_OU_CD_ZSE1: { return "ZSE1"; }
+			case LJ_OU_CD_ZSP1: { return "ZSP1"; }
+			case LJ_OU_CD_ZTO1: { return "ZTO1"; }			
+			}
+			
+			return "";
+		}
 
+	}
+
+	/**
+	 * 
+	 * Tipos de depósitos cadastrados no sistema
+	 * 
+	 * @author Softtek - QA
+	 *
+	 */
+	public static enum AUT_TIPO_DEPOSITO{
+		DEPOSITO_C010,
+		DEPOSITO_C050,
+		DEPOSITO_C060,
+		DEPOSITO_C070,
+		DEPOSITO_C080,
+		DEPOSITO_C081,
+		DEPOSITO_C082,
+		DEPOSITO_C090,
+		DEPOSITO_C100,
+		DEPOSITO_C101,
+		DEPOSITO_C102,
+		DEPOSITO_C103,
+		DEPOSITO_C200,
+		DEPOSITO_C500,
+		DEPOSITO_C020,
+		DEPOSITO_C030,
+		DEPOSITO_C040;
+		
+		@Override
+		public String toString() {
+			switch(this) {
+			case DEPOSITO_C010: { return "C010"; }
+			case DEPOSITO_C050: { return "C050"; }
+			case DEPOSITO_C060: { return "C060"; }
+			case DEPOSITO_C070: { return "C070"; }
+			case DEPOSITO_C080: { return "C080"; }
+			case DEPOSITO_C081: { return "C081"; }
+			case DEPOSITO_C082: { return "C082"; }
+			case DEPOSITO_C090: { return "C090"; }
+			case DEPOSITO_C100: { return "C100"; }
+			case DEPOSITO_C101: { return "C101"; }
+			case DEPOSITO_C102: { return "C102"; }
+			case DEPOSITO_C103: { return "C103"; }
+			case DEPOSITO_C200: { return "C200"; }
+			case DEPOSITO_C500: { return "C500"; }
+			case DEPOSITO_C020: { return "C020"; }
+			case DEPOSITO_C030: { return "C030"; }
+			case DEPOSITO_C040: { return "C040"; }			
+			}
+			
+			return "";
+		}
+
+	}
 
 
 	/**

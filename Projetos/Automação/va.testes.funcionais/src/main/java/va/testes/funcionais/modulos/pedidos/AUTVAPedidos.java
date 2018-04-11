@@ -11,7 +11,9 @@ import org.openqa.selenium.support.ui.Select;
 import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF;
 import va.testes.funcionais.utils.AUTTestObject;
 import va.testes.funcionais.utils.AUTVAUtilidades;
+import va.testes.funcionais.utils.AUTVAUtilidades.AUT_TIPO_DEPOSITO;
 import va.testes.funcionais.utils.AUTVAUtilidades.AUT_TIPO_FLUXO_SAIDA;
+import va.testes.funcionais.utils.AUTVAUtilidades.AUT_TIPO_LOJA;
 
 
 public class AUTVAPedidos extends AUTTestObject{
@@ -32,8 +34,12 @@ public class AUTVAPedidos extends AUTTestObject{
 		String materialQuantProdPesquisa = "8";
 		String materialCodigoProdPedido = "88282446|89455163|88521034|";
 		String materialQuantPedido = "3|5|2|";		
-		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA;
-		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA.toString();
+		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA;
+		AUT_TIPO_LOJA tipoLojaFluxoSaida = AUT_TIPO_LOJA.LJ_OU_CD_0045;
+		AUT_TIPO_DEPOSITO tipoDepositoFluxoSaida = AUT_TIPO_DEPOSITO.DEPOSITO_C010;
+		
+		
+		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA.toString();
 
 
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "carrinho", 0);
@@ -257,8 +263,44 @@ public class AUTVAPedidos extends AUTTestObject{
 					}
 					}
 
+					java.util.List<org.openqa.selenium.WebElement> listaOpcoesFlxSdLojas = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionDeposit\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
 
+					for(org.openqa.selenium.WebElement itemFlxSd : listaOpcoesFlxSdLojas) {
+						try {
+							org.openqa.selenium.support.ui.Select selectItem = new Select(itemFlxSd);
 
+							selectItem.selectByValue(tipoLojaFluxoSaida.toString());
+
+							itemFlxSd.sendKeys(Keys.TAB);
+						}
+						catch(java.lang.Exception e) {
+							System.err.println("AUT ERROR : SELECT ITEM");
+							System.err.println(e.getMessage());
+							e.printStackTrace();
+						}
+					}
+
+					
+					java.util.List<org.openqa.selenium.WebElement> listaOpcoesFlxSdDeposito = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionWarehouse\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
+
+					for(org.openqa.selenium.WebElement itemFlxSd : listaOpcoesFlxSdDeposito) {
+						try {
+							
+							org.openqa.selenium.support.ui.Select selectItem = new Select(itemFlxSd);
+
+							
+							selectItem.selectByValue(tipoDepositoFluxoSaida.toString().concat("_").concat(tipoLojaFluxoSaida.toString()));
+							itemFlxSd.sendKeys(Keys.TAB);
+
+							
+						}
+						catch(java.lang.Exception e) {
+							System.err.println("AUT ERROR : SELECT ITEM");
+							System.err.println(e.getMessage());
+							e.printStackTrace();
+						}
+					}
+					
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
 					AUTVAUtilidades.sincronizarStepPorTexto(20, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar meio de pagamento\\W{0,}.{0,}\\<.{0,}\\>");					
