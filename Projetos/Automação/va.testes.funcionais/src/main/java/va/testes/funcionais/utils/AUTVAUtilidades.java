@@ -312,7 +312,7 @@ public class AUTVAUtilidades {
 		 * RETIRADA NA LOJA
 		 * 
 		 */
-		RETIRADA,
+		RETIRADA_INTERNA,
 
 		/**
 		 * 
@@ -343,7 +343,7 @@ public class AUTVAUtilidades {
 		 * ENTREGA EXPRESSA
 		 * 
 		 */
-		ENTREGA_EXPRESSA,
+		RETIRADA_INTERNA_AGENDADA,
 		ENTREGA_ECONOMICA;
 
 		@Override
@@ -358,21 +358,19 @@ public class AUTVAUtilidades {
 			case ENTREGA_ECONOMICA:{			
 				return "ENTREGA ECONOMICA";
 			}
-			case ENTREGA_EXPRESSA:{			
-				return "ENTREGA EXPRESSA";
-			}
-			case RETIRADA:{				
-				return "RETIRADA";
+			case RETIRADA_EXTERNA_IMEDIATA:{				
+				return "2_RETIRA_EXTERNA_IMEDIATA";				
 			}
 			case RETIRADA_EXTERNA_AGENDADA:{				
-				return "Retirada externa agendada";
-			}
-			case RETIRADA_EXTERNA_IMEDIATA:{				
-				return "Retirada externa imediata";				
+				return "3_RETIRA_EXTERNA_AGENDADA";
 			}
 			case RETIRADA_INTERNA_IMEDIATA:{			
-				return "Retirada interna imediata";
+				return "4_RETIRA_INTERNA_IMEDIATA";
 			}
+			case RETIRADA_INTERNA_AGENDADA:{			
+				return "5_RETIRA_INTERNA_AGENDADA";
+			}
+
 			}
 
 			return "";

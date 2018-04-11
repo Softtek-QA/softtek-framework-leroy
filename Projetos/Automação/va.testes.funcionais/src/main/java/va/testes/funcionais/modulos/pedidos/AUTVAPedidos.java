@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Select;
 
 import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF;
 import va.testes.funcionais.utils.AUTTestObject;
@@ -33,8 +34,8 @@ public class AUTVAPedidos extends AUTTestObject{
 		String materialQuantPedido = "3|5|2|";		
 		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA;
 		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA.toString();
-		
-		
+
+
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "carrinho", 0);
 
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Iniciar novo atendimento", 0);
@@ -162,67 +163,102 @@ public class AUTVAPedidos extends AUTTestObject{
 
 					switch(materialTipoSaida) {
 					case CAIXA:{
-						
+
 						docDriver.findElementById("caixa").click();
-						
+
 						break;
 					}
 					case ENTREGA:{
-						
+
 						docDriver.findElementById("entrega").click();
-						
+
 						break;
 					}
 					case ENTREGA_ECONOMICA:{
-						
+
 						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.ENTREGA_ECONOMICA.toString()));
-						
+
 						break;
 					}
-					case ENTREGA_EXPRESSA:{
-						
-						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.ENTREGA_EXPRESSA.toString()));
-											
-						break;
-					}
-					case RETIRADA:{
-						
-						docDriver.findElementById("retirada").click();
-						
+					case RETIRADA_INTERNA_AGENDADA:{
+						java.util.List<org.openqa.selenium.WebElement> listaOpcoesFluxoSaida = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionType\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
+
+						for(org.openqa.selenium.WebElement itemFluxoSd : listaOpcoesFluxoSaida) {
+							try {
+								org.openqa.selenium.support.ui.Select selectItem = new Select(itemFluxoSd);
+
+								selectItem.selectByValue(materialTipoSaidaAux);
+
+								itemFluxoSd.sendKeys(Keys.TAB);
+							}
+							catch(java.lang.Exception e) {
+								System.err.println("AUT ERROR : SELECT ITEM");
+								System.err.println(e.getMessage());
+								e.printStackTrace();
+							}
+						}
 						break;
 					}
 					case RETIRADA_EXTERNA_AGENDADA:{
-						
+
 						java.util.List<org.openqa.selenium.WebElement> listaOpcoesFluxoSaida = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionType\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
-						
+
 						for(org.openqa.selenium.WebElement itemFluxoSd : listaOpcoesFluxoSaida) {
-							
+
 							itemFluxoSd.click();
-							itemFluxoSd.sendKeys(materialTipoSaidaAux);
-							
 							java.lang.Thread.currentThread().sleep(2000);
+							itemFluxoSd.sendKeys(materialTipoSaidaAux);							
+							java.lang.Thread.currentThread().sleep(1000);
 						}						
-						
+
 						break;
 					}
 					case RETIRADA_EXTERNA_IMEDIATA:{
-						
-						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA.toString()));
-						
+
+						java.util.List<org.openqa.selenium.WebElement> listaOpcoesFluxoSaida = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionType\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
+
+						for(org.openqa.selenium.WebElement itemFluxoSd : listaOpcoesFluxoSaida) {
+							try {
+								org.openqa.selenium.support.ui.Select selectItem = new Select(itemFluxoSd);
+
+								selectItem.selectByValue(materialTipoSaidaAux);
+
+								itemFluxoSd.sendKeys(Keys.TAB);
+							}
+							catch(java.lang.Exception e) {
+								System.err.println("AUT ERROR : SELECT ITEM");
+								System.err.println(e.getMessage());
+								e.printStackTrace();
+							}
+						}	
+
 						break;
 					}
 					case RETIRADA_INTERNA_IMEDIATA:{
-						
-						System.out.println("AUT INFO : FUNCAO NAO IMPLEMENTADA :".concat(AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA.toString()));
+
+						java.util.List<org.openqa.selenium.WebElement> listaOpcoesFluxoSaida = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionType\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
+
+						for(org.openqa.selenium.WebElement itemFluxoSd : listaOpcoesFluxoSaida) {
+							try {
+								org.openqa.selenium.support.ui.Select selectItem = new Select(itemFluxoSd);
+
+								selectItem.selectByValue(materialTipoSaidaAux);
+
+								itemFluxoSd.sendKeys(Keys.TAB);
+							}
+							catch(java.lang.Exception e) {
+								System.err.println("AUT ERROR : SELECT ITEM");
+								System.err.println(e.getMessage());
+								e.printStackTrace();
+							}
+						}	
 						
 						break;
 					}
 					}
-					
-					
-					
-					
-					/**
+
+
+
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
 					AUTVAUtilidades.sincronizarStepPorTexto(20, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar meio de pagamento\\W{0,}.{0,}\\<.{0,}\\>");					
@@ -258,7 +294,6 @@ public class AUTVAPedidos extends AUTTestObject{
 
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Iniciar novo atendimento", 0);
 
-**/
 				}
 				catch(java.lang.Exception e) {
 
