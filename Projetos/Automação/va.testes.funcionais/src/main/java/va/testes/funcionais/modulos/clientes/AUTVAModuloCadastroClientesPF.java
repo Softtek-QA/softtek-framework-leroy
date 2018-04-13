@@ -265,6 +265,7 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
 			 		
 			AUTVAUtilidades.capturarEvidencia(docDriver,  clienteCorrente.toString().concat(" - ").concat("CHECKPOINT - CADASTRO CLIENTE"));
+			
 			contClientes++;
 		}
 	}
