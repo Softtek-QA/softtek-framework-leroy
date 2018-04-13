@@ -33,13 +33,13 @@ public class AUTVAPedidos extends AUTTestObject{
 		String materialCodigoProdPesquisa = "88282446";
 		String materialQuantProdPesquisa = "8";
 		String materialCodigoProdPedido = "88282446|89455163|88521034|";
-		String materialQuantPedido = "3|5|2|";		
-		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA;
+		String materialQuantPedido = "3|5|2|";
+		String dataAgendaRetirada = "16/05/2018";
+		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_AGENDADA;		
+		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_AGENDADA.toString();
 		AUT_TIPO_LOJA tipoLojaFluxoSaida = AUT_TIPO_LOJA.LJ_OU_CD_0045;
-		AUT_TIPO_DEPOSITO tipoDepositoFluxoSaida = AUT_TIPO_DEPOSITO.DEPOSITO_C010;
-		
-		
-		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA.toString();
+		AUT_TIPO_DEPOSITO tipoDepositoFluxoSaida = AUT_TIPO_DEPOSITO.DEPOSITO_C010;	
+		String dtAgendamentoFluxoSd = "18/04/2018";
 
 
 		AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "carrinho", 0);
@@ -206,16 +206,22 @@ public class AUTVAPedidos extends AUTTestObject{
 						break;
 					}
 					case RETIRADA_EXTERNA_AGENDADA:{
-
 						java.util.List<org.openqa.selenium.WebElement> listaOpcoesFluxoSaida = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionType\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
 
 						for(org.openqa.selenium.WebElement itemFluxoSd : listaOpcoesFluxoSaida) {
+							try {
+								org.openqa.selenium.support.ui.Select selectItem = new Select(itemFluxoSd);
 
-							itemFluxoSd.click();
-							java.lang.Thread.currentThread().sleep(2000);
-							itemFluxoSd.sendKeys(materialTipoSaidaAux);							
-							java.lang.Thread.currentThread().sleep(1000);
-						}						
+								selectItem.selectByValue(materialTipoSaidaAux);
+
+								itemFluxoSd.sendKeys(Keys.TAB);
+							}
+							catch(java.lang.Exception e) {
+								System.err.println("AUT ERROR : SELECT ITEM");
+								System.err.println(e.getMessage());
+								e.printStackTrace();
+							}
+						}
 
 						break;
 					}
@@ -258,7 +264,7 @@ public class AUTVAPedidos extends AUTTestObject{
 								e.printStackTrace();
 							}
 						}	
-						
+
 						break;
 					}
 					}
@@ -280,19 +286,19 @@ public class AUTVAPedidos extends AUTTestObject{
 						}
 					}
 
-					
+
 					java.util.List<org.openqa.selenium.WebElement> listaOpcoesFlxSdDeposito = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "select", String.format("(?i:\\<(select).{0,}id=.{0,}withdrawalOptionWarehouse\\-{0,}\\d+.{0,}\\>)",cliente.toString()));
 
 					for(org.openqa.selenium.WebElement itemFlxSd : listaOpcoesFlxSdDeposito) {
 						try {
-							
+
 							org.openqa.selenium.support.ui.Select selectItem = new Select(itemFlxSd);
 
-							
+
 							selectItem.selectByValue(tipoDepositoFluxoSaida.toString().concat("_").concat(tipoLojaFluxoSaida.toString()));
 							itemFlxSd.sendKeys(Keys.TAB);
 
-							
+
 						}
 						catch(java.lang.Exception e) {
 							System.err.println("AUT ERROR : SELECT ITEM");
@@ -300,7 +306,35 @@ public class AUTVAPedidos extends AUTTestObject{
 							e.printStackTrace();
 						}
 					}
-					
+
+					java.util.List<org.openqa.selenium.WebElement> listaOpcoesCmpDtAgendaFlxSd = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", String.format("(?i:\\<input.{0,}id=.{0,}withdrawal-option-date\\-\\d+)",cliente.toString()));					
+
+					for(org.openqa.selenium.WebElement cmpDt : listaOpcoesCmpDtAgendaFlxSd) {
+						cmpDt.click();
+					}
+
+					java.util.List<org.openqa.selenium.WebElement> listaOpcoesDtAgendaFlxSd = docDriver.findElementsByTagName("span");					
+					for(org.openqa.selenium.WebElement itemFlxSd : listaOpcoesDtAgendaFlxSd) {
+						try {							
+							
+							String atributo = itemFlxSd.getAttribute("class");
+							if(!atributo.equals(null) && atributo.equals("dayContainer"))
+							{
+								System.out.println("AUT INFO : CONTAINER DE DIGITOS DATA ENCONTRADO");
+								
+								System.out.println(atributo);
+								System.out.println(itemFlxSd.getAttribute("style"));
+								System.out.println(itemFlxSd.getAttribute("outerHTML"));
+							}
+						}
+						catch(java.lang.Exception e) {
+							System.err.println("AUT ERROR : SELECT ITEM");
+							System.err.println(e.getMessage());
+							e.printStackTrace();
+						}
+					}			
+
+					/**
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
 					AUTVAUtilidades.sincronizarStepPorTexto(20, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar meio de pagamento\\W{0,}.{0,}\\<.{0,}\\>");					
@@ -336,6 +370,8 @@ public class AUTVAPedidos extends AUTTestObject{
 
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Iniciar novo atendimento", 0);
 
+
+					 **/
 				}
 				catch(java.lang.Exception e) {
 

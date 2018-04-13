@@ -283,7 +283,7 @@ public class AUTVAUtilidades {
 	 *
 	 */
 	public static abstract class AUTTestServices{
-
+		
 	}
 
 	/**
@@ -476,10 +476,10 @@ public class AUTVAUtilidades {
 		LJ_OU_CD_ZSE1,
 		LJ_OU_CD_ZSP1,
 		LJ_OU_CD_ZTO1;
-		
+
 		@Override
 		public String toString() {
-			
+
 			switch(this) {
 			case LJ_OU_CD_0001: { return "0001"; }
 			case LJ_OU_CD_0002: { return "0002"; }
@@ -572,7 +572,7 @@ public class AUTVAUtilidades {
 			case LJ_OU_CD_ZSP1: { return "ZSP1"; }
 			case LJ_OU_CD_ZTO1: { return "ZTO1"; }			
 			}
-			
+
 			return "";
 		}
 
@@ -603,7 +603,7 @@ public class AUTVAUtilidades {
 		DEPOSITO_C020,
 		DEPOSITO_C030,
 		DEPOSITO_C040;
-		
+
 		@Override
 		public String toString() {
 			switch(this) {
@@ -625,7 +625,7 @@ public class AUTVAUtilidades {
 			case DEPOSITO_C030: { return "C030"; }
 			case DEPOSITO_C040: { return "C040"; }			
 			}
-			
+
 			return "";
 		}
 
@@ -647,6 +647,35 @@ public class AUTVAUtilidades {
 		e.printStackTrace();
 	}
 
+	/**
+	 * 
+	 * Retorna a relação de elementos que atendem ao critério definido pela expressão regular
+	 * 
+	 * @param tagElemento - Tag do elemento procurado
+	 * @param expressaoRegular - Expressão regular para definição do critério de pesquisa
+	 * 
+	 * @return java.util.List<org.openqa.selenium.WebElement> - Elementos HTML que atendem ao critério
+	 */
+	public java.util.List<org.openqa.selenium.WebElement> carregarListaElementos(org.openqa.selenium.WebDriver docItem,String tagElemento,String expressaoRegular){
+		
+		java.util.List<org.openqa.selenium.WebElement> itensOut = new java.util.ArrayList<org.openqa.selenium.WebElement>();
+		
+		String docHTML = docItem.getPageSource();
+		
+		java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegular);
+		
+		java.util.regex.Matcher analise = padrao.matcher(docHTML);
+		
+		System.out.println("AUT INFO : INICIANDO PESQUISA DE ELEMENTOS POR TAG + EXPRESSÃO REGULAR");
+		
+		while(analise.find()) {
+			System.out.println("CORRESPONDENCIA TAG ENCONTRADA: ");
+			
+			System.out.println(analise.group());
+		}
+		
+		return itensOut;
+	}
 
 	/**
 	 * 
@@ -987,7 +1016,6 @@ public class AUTVAUtilidades {
 
 				doc.executeScript(scriptFormat);
 
-
 			}
 			else if(browserNome.contains("gecko")) {
 				FirefoxDriver doc = (FirefoxDriver) docItem;
@@ -1144,8 +1172,6 @@ public class AUTVAUtilidades {
 	}
 
 
-
-
 	/**
 	 * 
 	 * Retorna um elemento para manipulação com base no valor do atributo especificado
@@ -1160,7 +1186,6 @@ public class AUTVAUtilidades {
 	 * 
 	 */
 	public static org.openqa.selenium.WebElement pesquisarObjeto(org.openqa.selenium.WebDriver docItem,String tagElement,int numOcorrencia,String nomeAtributo,String conteudoPesquisa,Object... output){
-
 		java.util.List<org.openqa.selenium.WebElement> elementos = docItem.findElements(By.tagName(tagElement));
 		String conteudoValidacao = "";
 		System.out.println("HTML: PESQUISANDO ELEMENTO: ".concat(tagElement));
