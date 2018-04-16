@@ -1371,7 +1371,7 @@ public class AUTVAUtilidades {
 		for(int i = digNum2; i > 2;i--) {
 			somaTotalDig2 = java.lang.Math.addExact(somaTotalDig2, i-1);
 			System.out.println(somaTotalDig2);
-			
+			System.out.println("Teste de configuração");
 		}
 		
 		System.out.println("SOMAT DIG 1: ");
