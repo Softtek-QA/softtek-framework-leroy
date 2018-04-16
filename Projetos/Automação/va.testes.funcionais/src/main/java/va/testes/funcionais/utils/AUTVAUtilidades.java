@@ -1326,6 +1326,68 @@ public class AUTVAUtilidades {
 		}
 	} 
 
+	
+	public static Integer calcFuncCPF(int numeroDigitosValidado,int x,int totalResultValidacao) {
+		
+		
+		
+		return 0;
+	}
+	public static String gerarCPF() {
+		
+		Integer x = 1;
+		Integer digNum1 = 10;
+		Integer digNum2 = 11;
+		Integer somaTotalDig1 = digNum1;
+		Integer somaTotalDig2 = digNum2;
+		Integer rangeCalc = 0;
+		Integer rangeMin = 100;
+		Integer rangeMax = 1000;
+		Integer restoPossivel = 0;
+		
+		System.out.println("AUT INFO : RESTO DIVISAO");
+		
+		for(int i = rangeMin ;i <= rangeMax;i++) {
+			if((i % 11) >= 2 && (i % 11) <= 10) {
+				rangeCalc = (i % 11);
+				System.out.println(String.format("NUM : %s RESTO : %s",i,rangeCalc));
+				System.out.println(rangeCalc);
+			}			
+		}
+		
+		System.out.println("AUT INFO : FIM DO CALCULO : RESTO");
+		
+		System.out.println("AUT INFO : VALIDANDO DIGITO 1");
+		
+		for(int i = digNum1; i > 2;i--) {
+			somaTotalDig1 = java.lang.Math.addExact(somaTotalDig1, i-1);
+			System.out.println("AUT INFO : DIGITO");
+			System.out.println(i);
+			System.out.println(somaTotalDig1);
+		}
+
+		System.out.println("AUT INFO : VALIDANDO DIGITO 2");
+		
+		for(int i = digNum2; i > 2;i--) {
+			somaTotalDig2 = java.lang.Math.addExact(somaTotalDig2, i-1);
+			System.out.println(somaTotalDig2);
+			
+		}
+		
+		System.out.println("SOMAT DIG 1: ");
+
+		System.out.println(somaTotalDig1);
+		
+		System.out.println("SOMAT DIG 2: ");
+		System.out.println(somaTotalDig2);
+				
+		System.out.println("AUT VALIDACAO DIGITO 1 :");
+		System.out.println(String.format("NUM X : %s", (somaTotalDig1)));
+		
+		
+		return "";
+	}
+	
 	/**
 	 * Responsável por fazer o login no sistema VA
 	 * 
@@ -1354,6 +1416,7 @@ public class AUTVAUtilidades {
 		catch(org.openqa.selenium.NoSuchElementException e) {
 
 			System.out.println("AUT ERROR : ELEMENTO NAO ENCONTRADO NA PÁGINA");
+			
 			autLogMsg(e, docDriver);
 
 			return false;
