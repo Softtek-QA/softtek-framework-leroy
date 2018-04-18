@@ -43,22 +43,7 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 	}
 	
 	@Test
-	public void test() throws IOException, InterruptedException {				
-		
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
-		System.out.println(AUTVAUtilidades.gerarCPF());
+	public void test() throws IOException, InterruptedException {						
 		
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
 		MD_PARAMETROS_ENTRADA = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
@@ -109,7 +94,6 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 
 		docDriver.executeScript("document.getElementsByClassName(\"burger-menu\")[0].click()");
 
-
 		AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}Selecionar Loja.{0,}\\<.{0,}\\>");
 		boolean existeMenuClientes = AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}Clientes.{0,}\\<.{0,}\\>");
 		AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Parâmetros de Frete\\W{0,}.{0,}\\<.{0,}\\>");
@@ -124,11 +108,31 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 
 
 		Integer contClientes = 1;
-		
-		
+				
 		MD_PARAMETROS_SAIDA = new java.util.HashMap<Object,Object>();
+		String regExpCliNum = "\\<\\d+\\>";
+		String numeroClientes = "";
 		
-		MD_PARAMETROS_SAIDA.put("CLIENTES", AUTVAUtilidades.autSplitParameters("\\d+",clienteCPF));
+		if(clienteCPF.matches(regExpCliNum)) {
+			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile("\\d+");
+			java.util.regex.Matcher analise = padrao.matcher(clienteCPF);
+			
+			if(analise.find()) {
+				numeroClientes = analise.group();
+			}
+						
+			System.out.println(String.format("AUT INFO  : NUMERO DE CLIENTES PARA GERAR CPF : %s",numeroClientes));
+			java.util.HashMap<Integer,String> clientesOut = new java.util.HashMap<Integer,String>();
+			
+			for(int i = 1; i <= Integer.parseInt(numeroClientes);i++) {
+				clientesOut.put(i, AUTVAUtilidades.gerarCPF());
+			}
+			
+			MD_PARAMETROS_SAIDA.put("CLIENTES", clientesOut);
+		}
+		else {
+			MD_PARAMETROS_SAIDA.put("CLIENTES", AUTVAUtilidades.autSplitParameters("\\d+",clienteCPF));
+		}
 		
 		java.util.HashMap<Object,Object> hashClientes = (java.util.HashMap<Object,Object>)MD_PARAMETROS_SAIDA.get("CLIENTES");
 		
@@ -169,11 +173,8 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Aceito receber novidades, ofertas e notícias da Leroy Merlin\\W{0,}.{0,}\\<.{0,}\\>");
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,"STEP 1");
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Sim", 0);
-
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 2"));
 			
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.getClass().getName(), docDriver, 2, "\t");
 
@@ -183,15 +184,11 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Tipo telefone", 0);
 
-			docDriver.findElementById("tipo-0-pf").sendKeys(clienteTipoTelefone);
-			
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 3"));
+			docDriver.findElementById("tipo-0-pf").sendKeys(clienteTipoTelefone);	
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Num. Telefone", 0);
 
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("telefone-0-pf"), (long)0.5, clienteNumeroTelefone);
-
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 4"));
 			
 			docDriver.getKeyboard().sendKeys("\t");
 			
@@ -200,15 +197,12 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("tipo-imovel-0-pf"), (long)0.3, clienteNumeroTelefone);
 
 			//docDriver.findElementById("oferta-telefone-sim").click();
-
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 5"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "CEP", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("cep-0-pf"), (long)0.3, clienteCEPEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 6"));
-
-			boolean erroPesquisaCEP = AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Não foi possível realizar sua pesquisa, tente mais tarde.\\W{0,}.{0,}\\<.{0,}\\>");
+			boolean erroPesquisaCEP = AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}(Não foi possível realizar sua pesquisa, tente mais tarde|Não foi encontrado o endereço do CEP).\\W{0,}.{0,}\\<.{0,}\\>");
+			
 			if(erroPesquisaCEP) {
 				System.out.println("AUT INFO : NAO FOI POSSIVEL PESQUISAR CEP ONLINE");
 
@@ -218,68 +212,69 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Rua", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("rua-0-pf"), (long)0.3, clienteRuaEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 7"));
-
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Número", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("numero-0-pf"), (long)0.3, clienteRuaNumEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 8"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Bairro", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("bairro-0-pf"), (long)0.3, clienteBairroEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 9"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Complemento", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("complemento-0-pf"), (long)0.3, clienteComplementoEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 10"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Cidade", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("cidade-0-pf"), (long)0.3, clienteCidadeEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 11"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Estado", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("estado-0-pf"), (long)0.3, clienteEstadoEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 12"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Referência", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("referencia-0-pf"), (long)0.3, clienteReferenciaEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 13"));
 			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "label", "click", "Tipo de Imóvel", 0);
 			AUTVAUtilidades.enviarDadosElementWeb(docDriver.findElementById("tipo-imovel-0-pf"), (long)0.3, clienteTipoImovelEndereco);
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 14"));
-
 			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Aceito receber novidades, ofertas e notícias da Leroy Merlin por mala direta\\W{0,}.{0,}\\<.{0,}\\>");
 
 			java.lang.Thread.currentThread().sleep(4000);
-			docDriver.findElementById("mala-direta-sim-pf").click();
+			try {
+				docDriver.findElementById("mala-direta-sim-pf").click();
+				AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:<(input).{0,}mala\\-{0,}direta\\-{0,}sim\\-pf.{0,}>)").get(0).click();
 
-			AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:<(input).{0,}mala\\-{0,}direta\\-{0,}sim\\-pf.{0,}>)").get(0).click();
+			}
+			catch(java.lang.Exception e) {
+				
+			}
 
 			docDriver.getKeyboard().sendKeys("\t");
 
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 15"));
-			
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
-			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, String.format(".{0,30}%s.{0,30}",clienteCorrente));
-			
-			AUTVAUtilidades.capturarEvidencia(docDriver,contClientes.toString().concat(" - ").concat("STEP 16"));
+			boolean erroCadastro = AUTVAUtilidades.sincronizarStepPorTexto(5,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}(Algo deu errado\\!).\\W{0,}.{0,}\\<.{0,}\\>");
 
+			if(erroCadastro) {
+				docDriver.findElementById("mala-direta-sim-pf").click();
+				AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", "(?i:<(input).{0,}mala\\-{0,}direta\\-{0,}sim\\-pf.{0,}>)").get(0).click();
+				AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
+			}
+
+			
+			AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, String.format(".{0,30}%s.{0,}%s.{0,30}",clienteNome,clienteCorrente));
+
+			java.lang.Thread.currentThread().sleep(4000);
+			
 			System.out.println("AUT STATUS FINAL: CLIENTE CADASTRADO COM SUCESSO!!!");
 
-			docDriver.executeScript("cont=0;tot=document.getElementsByTagName(\"strong\").length;itens=document.getElementsByTagName(\"strong\");while(cont<tot){console.log(itens[cont]);cont++;}");
+			
+			AUTVAUtilidades.capturarEvidencia(docDriver,  clienteCorrente.toString().concat(" - ").concat("CHECKPOINT - CADASTRO CLIENTE"));
 
 			AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "strong", "click", "Clientes", 0);
-			 		
-			AUTVAUtilidades.capturarEvidencia(docDriver,  clienteCorrente.toString().concat(" - ").concat("CHECKPOINT - CADASTRO CLIENTE"));
-			
+			 	
 			contClientes++;
 		}
 	}

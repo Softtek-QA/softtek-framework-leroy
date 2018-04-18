@@ -1233,6 +1233,30 @@ public class AUTVAUtilidades {
 
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param elementoExiste - Se true (se o elemento definido pela expressão estiver visivel), false caso contrário - Observação(pesquisa realizada no código fonte)
+	 * @param segundosTimeOut - Timeout em segundos para aguarda que o elemento esteja disponível
+	 * @param docDriver - Webdriver
+	 * @param textoExpressaoRegular - Expressão regular que define o resultado esperado para o passo em questão (padrão java)
+	 * @return - True para sucesso false caso contrário
+	 * @throws Exception 
+	 */
+	public static void sincronizarStepPorTexto(boolean elementoExiste,Integer segundosTimeOut,org.openqa.selenium.WebDriver docDriver,String textoExpressaoRegular) throws Exception {
+		
+		boolean status = sincronizarStepPorTexto(segundosTimeOut, docDriver, textoExpressaoRegular);
+		int contCiclos = 0;
+		int totalCiclos = 3;
+		while(status==elementoExiste) {
+			System.out.println(String.format("AUT SINCRONIZACAO AVANCADA : ESCANEAMENTO : %s",contCiclos));
+			status = sincronizarStepPorTexto(segundosTimeOut, docDriver, textoExpressaoRegular);
+			
+			if(contCiclos==totalCiclos ) {
+				throw new java.lang.Exception("AUT SINC AVANCADA : NUMERO DE TENTATIVAS PARA ENCONTRAR ELEMENTO ESGOTADAS");
+			}
+		}		
+	}
 
 	/**
 	 * 
