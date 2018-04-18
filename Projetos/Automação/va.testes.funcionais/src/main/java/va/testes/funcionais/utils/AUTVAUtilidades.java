@@ -1481,13 +1481,10 @@ public class AUTVAUtilidades {
 		}
 		
 		if(indexDigito.equals(10)) {
-			System.out.println("GERANDO DIG 1 : CPF");
 			Integer resultCalc = 0;
 			for(Object prod : listaSomaProduto) {
 				resultCalc += (Integer)prod;
 			}
-			System.out.println("SOMA DE PRODUTOS DIGITO 1: ");
-			System.out.println(resultCalc);
 			
 			Integer somaProds = resultCalc;
 			Integer digCalc1 = (somaProds % 11);
@@ -1498,27 +1495,17 @@ public class AUTVAUtilidades {
 			funcaoOut += dig1.toString();			
 		}
 		else if(indexDigito.equals(11)) {
-			System.out.println("GERANDO DIG 2 : CPF");
-
 			Integer resultCalc = 0;
 			for(Object prod : listaSomaProduto) {
 				resultCalc += (Integer)prod;
-			}
-			System.out.println("SOMA DE PRODUTOS DIGITO 2: ");
-			System.out.println(resultCalc);
-			
+			}			
 			Integer somaProds = resultCalc;
 			Integer digCalc2 = (somaProds % 11);
 			Integer dig2 = (digCalc2 == 0 || digCalc2 == 1 ? 0 : (11 - digCalc2));
-			
-		
-			digOut = dig2;
-			
-			funcaoOut += dig2.toString();
+				
+			digOut = dig2;			
+			funcaoOut += dig2.toString();			
 		}
-		System.out.print("AUT INFO : PROTOTIPO FUNCAO :");
-		System.out.println(funcaoOut);
-		
 		
 		return digOut;
 	}
@@ -1541,34 +1528,21 @@ public class AUTVAUtilidades {
 		
 		for(Object dig : digs1) {
 			Integer x = (Integer)rnNumber.selecionarProximoItem();
-			Integer digCpf  = (Integer)dig;
-			
-			//somaProdDigts = java.lang.Math.addExact(somaProdDigts, (x * digCpf));	
-						
+			Integer digCpf  = (Integer)dig;			
 			digsBase.add(x);
 			digsSomaProd.add((x * digCpf));
 		}
-				
-		System.out.println("AUT INFO DIGITOS PADRAO: ");
-		System.out.println(digsBase);
-		System.out.println(digsSomaProd);
 
-		System.out.println("AUT DIG VERIFICADOR : 1");
-		Integer dig1 = gerarFuncPorDig(10, digsBase, digsSomaProd);
+		Integer dig1 = (Integer)gerarFuncPorDig(10, digsBase, digsSomaProd);
 		digsBase.add(dig1);
 		digsSomaProd.add(dig1 * 2);
-
-		System.out.println(digsBase);
-		System.out.println(digsSomaProd);
-
 		Integer contDig = 0;
 		
 		somaProdDigts = 0;
 		digsSomaProd.clear();
 		
 		for(Object dig : digs2) {
-			Integer x = (Integer)digsBase.get(contDig);
-			
+			Integer x = (Integer)digsBase.get(contDig);		
 			Integer digCpf  = (Integer)dig;
 			
 			digsSomaProd.add(x * Integer.parseInt(dig.toString()));
@@ -1576,12 +1550,16 @@ public class AUTVAUtilidades {
 			contDig++;
 		}
 				
-		System.out.println("AUT DIG VERIFICADOR : 2");
 		digsBase.add(gerarFuncPorDig(11, digsBase, digsSomaProd));
-		System.out.println(digsBase);
-		System.out.println(digsSomaProd);
+		java.lang.StringBuffer strCpf = new java.lang.StringBuffer();
 		
-		return "";
+		for(Object dig : digsBase) {
+			strCpf.append(dig);
+		}
+		
+		System.out.println(String.format("CPF GERADO : %s", strCpf.toString()));
+		
+		return strCpf.toString();
 	}
 	
 	/**
