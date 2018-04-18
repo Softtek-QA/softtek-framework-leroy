@@ -35,8 +35,12 @@ public class AUTVAPedidos extends AUTTestObject{
 		String materialCodigoProdPedido = "88282446|89455163|88521034|";
 		String materialQuantPedido = "3|5|2|";
 		String dataAgendaRetirada = "16/05/2018";
-		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_AGENDADA;		
-		String materialTipoSaidaAux = AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_AGENDADA.toString();
+		AUT_TIPO_FLUXO_SAIDA materialTipoSaida = va.testes.funcionais.utils.AUTVAUtilidades.selecionarTipoFluxoSaidaRND(new AUT_TIPO_FLUXO_SAIDA[] {
+				AUT_TIPO_FLUXO_SAIDA.CAIXA,
+				AUT_TIPO_FLUXO_SAIDA.RETIRADA_EXTERNA_IMEDIATA,
+				AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA
+				});		
+		String materialTipoSaidaAux = materialTipoSaida.toString();
 		AUT_TIPO_LOJA tipoLojaFluxoSaida = AUT_TIPO_LOJA.LJ_OU_CD_0045;
 		AUT_TIPO_DEPOSITO tipoDepositoFluxoSaida = AUT_TIPO_DEPOSITO.DEPOSITO_C010;	
 		String dtAgendamentoFluxoSd = "18/04/2018";
@@ -307,6 +311,7 @@ public class AUTVAPedidos extends AUTTestObject{
 						}
 					}
 
+					/**
 					java.util.List<org.openqa.selenium.WebElement> listaOpcoesCmpDtAgendaFlxSd = AUTVAUtilidades.procurarElementWebHTML(docDriver.getClass().getName(), docDriver, (long)0.3, "input", String.format("(?i:\\<input.{0,}id=.{0,}withdrawal-option-date\\-\\d+)",cliente.toString()));					
 
 					for(org.openqa.selenium.WebElement cmpDt : listaOpcoesCmpDtAgendaFlxSd) {
@@ -333,8 +338,7 @@ public class AUTVAPedidos extends AUTTestObject{
 							e.printStackTrace();
 						}
 					}			
-
-					/**
+**/
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "button", "click", "Avançar", 0);
 
 					AUTVAUtilidades.sincronizarStepPorTexto(20, docDriver, "\\<.{0,}\\>.{0,}\\W{0,}Adicionar meio de pagamento\\W{0,}.{0,}\\<.{0,}\\>");					
@@ -370,8 +374,6 @@ public class AUTVAPedidos extends AUTTestObject{
 
 					AUTVAUtilidades.executarMetodoElementoHTML(docDriver.getClass().getName(), docDriver, "a", "click", "Iniciar novo atendimento", 0);
 
-
-					 **/
 				}
 				catch(java.lang.Exception e) {
 

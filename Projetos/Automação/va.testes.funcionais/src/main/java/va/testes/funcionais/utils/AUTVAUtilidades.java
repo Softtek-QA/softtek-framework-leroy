@@ -1260,6 +1260,20 @@ public class AUTVAUtilidades {
 
 	/**
 	 * 
+	 * Seleciona um tipo de fluxo de caixa aleatoriamente
+	 * 
+	 * @param fluxos - Tipo de fluxo de saida de caixa
+	 * 
+	 * @return AUT_TIPO_FLUXO_SAIDA - Objeto que define o fluxo de caixa
+	 * 
+	 */
+	public static AUT_TIPO_FLUXO_SAIDA selecionarTipoFluxoSaidaRND(AUT_TIPO_FLUXO_SAIDA[] fluxos) {
+		AUTNumerosRandomicos rndItens = new AUTNumerosRandomicos(fluxos);
+		
+		return (AUT_TIPO_FLUXO_SAIDA)rndItens.selecionarProximoItem();
+	}
+	/**
+	 * 
 	 * Retorna um elemento para manipulação com base no valor do atributo especificado
 	 * 
 	 * @param docItem - Webdriver
