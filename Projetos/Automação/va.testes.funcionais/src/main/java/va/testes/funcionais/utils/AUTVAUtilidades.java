@@ -8,6 +8,7 @@ import java.nio.file.CopyOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
+import java.util.Stack;
 
 import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
@@ -25,7 +26,68 @@ import va.testes.funcionais.modulos.clientes.AUTVAModuloCadastroClientesPF;
 import va.testes.funcionais.runtime.*;
 
 public class AUTVAUtilidades {	
+	/**
+	 * Opções de de configurações possíveis para o cálculo de modulos
+	 * 
+	 * @author Softtek - QA
+	 *
+	 */
+	public static enum AUT_OPTION_CALC_MODULOS{
+		/**
+		 * 
+		 * REPRESENTA VALORES EM QUE O RESTO GERADO PELO CALCULO DO MÓDULO É MAIOR QUE ZERO
+		 * 
+		 */
+		RETORNAR_VALORES_MAIORES_QUE_ZERO,
+		/**
+		 * 
+		 * REPRESENTA VALORES EM QUE O RESTO GERADO PELO CALCULO DO MÓDULO É (0)
+		 * 
+		 */
+		RETORNAR_VALORES_MODULO_ZERO,
+		/**
+		 * 
+		 * REPRESENTA VALORES EM QUE O RESTO GERADO PELO CALCULO DO MÓDULO É (1)
+		 * 
+		 */
+		RETORNAR_VALORES_MODULO_UM,
+		/**
+		 * 
+		 * REPRESENTA VALORES EM QUE O RESTO GERADO PELO CALCULO DO MÓDULO ESTÁ ENTRE LIMITES DEFINIDOS (MINIMO E MAXIMO DO RESTO)
+		 * 
+		 */
+		RETORNAR_VALORES_MODULO_DEF_PARAMETROS
+	}
+	
+	public static class AUTNumerosRandomicos extends java.util.Random{
+		
+		/**
+		 * 
+		 * Lista de objetos selecionávei
+		 * 
+		 */
+		private Object[] itensOut = null;
+		
+		public AUTNumerosRandomicos() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
 
+		public AUTNumerosRandomicos(long arg0) {
+			super(arg0);
+			// TODO Auto-generated constructor stub
+		}
+		
+		public Object selecionarProximoItem() {
+			Integer indexItem = this.nextInt(itensOut.length);
+			return itensOut[indexItem] ;
+		}
+		
+		public AUTNumerosRandomicos(Object[] itens) {
+			itensOut = itens;
+			java.util.Arrays.sort(itensOut);
+		}
+	}
 
 	/**
 	 * Classe responsável pelo gerenciamento de logs dos sistema
@@ -1333,57 +1395,191 @@ public class AUTVAUtilidades {
 		
 		return 0;
 	}
-	public static String gerarCPF() {
+	
+	
+	public static Object[] calcModulosPossiveis(AUT_OPTION_CALC_MODULOS tipoCalc,Integer divisorModulo,Integer limiteMinimoRestoModulo,Integer limiteMaximoRestoModulo,Integer numeroBaseCalculo){
+		java.util.List<Integer> listaNum = new java.util.ArrayList<Integer>();
+		Object[] itensOut = null;
+		java.util.Stack stkOut = new Stack();
 		
-		Integer x = 1;
-		Integer digNum1 = 10;
-		Integer digNum2 = 11;
-		Integer somaTotalDig1 = digNum1;
-		Integer somaTotalDig2 = digNum2;
-		Integer rangeCalc = 0;
-		Integer rangeMin = 100;
-		Integer rangeMax = 1000;
-		Integer restoPossivel = 0;
+		Integer valorMod = 0;
+		for(int i = numeroBaseCalculo; i >= 1;i--)
+		{
+			
+			switch(tipoCalc) {
+			case RETORNAR_VALORES_MAIORES_QUE_ZERO:{
+				
+				break;
+			}
+			case RETORNAR_VALORES_MODULO_UM:{
+				
+				break;
+			}
+			case RETORNAR_VALORES_MODULO_ZERO:{
+				
+				break;
+			}
+			case RETORNAR_VALORES_MODULO_DEF_PARAMETROS:{
+				valorMod = (divisorModulo > 0 ? (i % divisorModulo) : -1);
+				
+				if(valorMod >= limiteMinimoRestoModulo 
+						&& valorMod <= limiteMaximoRestoModulo && !valorMod.equals(-1)) {
+					//System.out.println(String.format("VALOR BASE: %s VALOR REDUZIDO: %s",numeroBaseCalculo,i));				
+					//System.out.println(String.format("MODULO POSSIVEL: %s", valorMod));
+					stkOut.push(i);	
+					
+				}		
+				break;
+			}
+			}
+			
+		}
 		
-		System.out.println("AUT INFO : RESTO DIVISAO");
+		itensOut = stkOut.toArray();		
 		
-		for(int i = rangeMin ;i <= rangeMax;i++) {
-			if((i % 11) >= 2 && (i % 11) <= 10) {
-				rangeCalc = (i % 11);
-				System.out.println(String.format("NUM : %s RESTO : %s",i,rangeCalc));
-				System.out.println(rangeCalc);
+		return itensOut;
+	}
+	
+	
+	public static Integer calcNovoValorBaseReduzidoModDiv(Object[] valoresPossiveis,Integer valorDigito,Integer valorBaseAtual) {
+		Integer valorSelect = 0,indexCorrente = 0,valorProcurado = 0;
+		System.out.println();
+		System.out.println("VALOR MEDIO SELECIONADO PARA CALCULO: ");
+		
+		Integer indexMid = java.lang.Math.round((valoresPossiveis.length / 2));		
+		valorSelect = Integer.parseInt(valoresPossiveis[indexMid].toString());		
+		System.out.println(valorSelect);
+		
+		for(int i = indexMid; i >= 0; i--) {
+			indexCorrente = i;
+			valorProcurado = (Integer)valoresPossiveis[indexCorrente];
+			if((valorSelect - valorProcurado) == valorDigito) {
+				System.out.println("AUT NOVO VALOR BASE DEFINIDO:");
+				System.out.println(valorProcurado);
+				break;
 			}			
 		}
 		
-		System.out.println("AUT INFO : FIM DO CALCULO : RESTO");
 		
-		System.out.println("AUT INFO : VALIDANDO DIGITO 1");
-		
-		for(int i = digNum1; i > 2;i--) {
-			somaTotalDig1 = java.lang.Math.addExact(somaTotalDig1, i-1);
-			System.out.println("AUT INFO : DIGITO");
-			System.out.println(i);
-			System.out.println(somaTotalDig1);
+		return 0;
+	}
+	
+	
+	public static Integer gerarFuncPorDig(Integer indexDigito,java.util.List<Object> listaDigitos,java.util.List<Object> listaSomaProduto) {
+		Integer contDig = 1;
+		String pontoFuncao = "X";
+		String funcaoOut = "";
+		Integer digOut = -1;
+		for(Object dig : listaDigitos) {			
+			if(contDig.equals(indexDigito)) {
+				funcaoOut += pontoFuncao;
+			}
+			else {
+				funcaoOut += dig;
+			}
+			contDig++;
 		}
-
-		System.out.println("AUT INFO : VALIDANDO DIGITO 2");
 		
-		for(int i = digNum2; i > 2;i--) {
-			somaTotalDig2 = java.lang.Math.addExact(somaTotalDig2, i-1);
-			System.out.println(somaTotalDig2);
-			System.out.println("Teste de configuração");
+		if(indexDigito.equals(10)) {
+			System.out.println("GERANDO DIG 1 : CPF");
+			Integer resultCalc = 0;
+			for(Object prod : listaSomaProduto) {
+				resultCalc += (Integer)prod;
+			}
+			System.out.println("SOMA DE PRODUTOS DIGITO 1: ");
+			System.out.println(resultCalc);
+			
+			Integer somaProds = resultCalc;
+			Integer digCalc1 = (somaProds % 11);
+			Integer dig1 = (digCalc1 == 0 || digCalc1 == 1 ? 0 : (11 - digCalc1));
+			
+			digOut = dig1;
+			
+			funcaoOut += dig1.toString();			
 		}
-		
-		System.out.println("SOMAT DIG 1: ");
+		else if(indexDigito.equals(11)) {
+			System.out.println("GERANDO DIG 2 : CPF");
 
-		System.out.println(somaTotalDig1);
+			Integer resultCalc = 0;
+			for(Object prod : listaSomaProduto) {
+				resultCalc += (Integer)prod;
+			}
+			System.out.println("SOMA DE PRODUTOS DIGITO 2: ");
+			System.out.println(resultCalc);
+			
+			Integer somaProds = resultCalc;
+			Integer digCalc2 = (somaProds % 11);
+			Integer dig2 = (digCalc2 == 0 || digCalc2 == 1 ? 0 : (11 - digCalc2));
+			
 		
-		System.out.println("SOMAT DIG 2: ");
-		System.out.println(somaTotalDig2);
+			digOut = dig2;
+			
+			funcaoOut += dig2.toString();
+		}
+		System.out.print("AUT INFO : PROTOTIPO FUNCAO :");
+		System.out.println(funcaoOut);
+		
+		
+		return digOut;
+	}
+	
+	public static String gerarCPF() {
+		
+		//Itens para validação do digito 1 
+		Integer[] digs1 = new Integer[] {10,9,8,7,6,5,4,3,2};
+		//Itens para validação do digito 2
+		Integer[] digs2 = new Integer[] {11,10,9,8,7,6,5,4,3,2};
+		//Digitos cpf
+		Integer[] digsSelect = new Integer[] {0,1,2,3,4,5,6,7,8,9};
+		//Chaves de Função
+		Object[] configChavesAtribuicaoBaseRND = new Object[] {"X1","X2","X3","X4","X5","X6","X7","X8","X9"};		
+		//Funções para atribuição de digitos
+		AUTNumerosRandomicos rnNumber = new AUTNumerosRandomicos(digsSelect);		
+		java.util.List<Object> digsBase = new java.util.ArrayList<Object>();
+		java.util.List<Object> digsSomaProd = new java.util.ArrayList<Object>();
+		Integer somaProdDigts = 0;				
+		
+		for(Object dig : digs1) {
+			Integer x = (Integer)rnNumber.selecionarProximoItem();
+			Integer digCpf  = (Integer)dig;
+			
+			//somaProdDigts = java.lang.Math.addExact(somaProdDigts, (x * digCpf));	
+						
+			digsBase.add(x);
+			digsSomaProd.add((x * digCpf));
+		}
 				
-		System.out.println("AUT VALIDACAO DIGITO 1 :");
-		System.out.println(String.format("NUM X : %s", (somaTotalDig1)));
+		System.out.println("AUT INFO DIGITOS PADRAO: ");
+		System.out.println(digsBase);
+		System.out.println(digsSomaProd);
+
+		System.out.println("AUT DIG VERIFICADOR : 1");
+		Integer dig1 = gerarFuncPorDig(10, digsBase, digsSomaProd);
+		digsBase.add(dig1);
+		digsSomaProd.add(dig1 * 2);
+
+		System.out.println(digsBase);
+		System.out.println(digsSomaProd);
+
+		Integer contDig = 0;
 		
+		somaProdDigts = 0;
+		digsSomaProd.clear();
+		
+		for(Object dig : digs2) {
+			Integer x = (Integer)digsBase.get(contDig);
+			
+			Integer digCpf  = (Integer)dig;
+			
+			digsSomaProd.add(x * Integer.parseInt(dig.toString()));
+			
+			contDig++;
+		}
+				
+		System.out.println("AUT DIG VERIFICADOR : 2");
+		digsBase.add(gerarFuncPorDig(11, digsBase, digsSomaProd));
+		System.out.println(digsBase);
+		System.out.println(digsSomaProd);
 		
 		return "";
 	}

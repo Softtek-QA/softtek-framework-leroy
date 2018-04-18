@@ -46,6 +46,19 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 	public void test() throws IOException, InterruptedException {				
 		
 		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
+		System.out.println(AUTVAUtilidades.gerarCPF());
 		
 		System.out.println("INFO TEST: CARREGANDO MASSA DE DADOS DO TESTE");
 		MD_PARAMETROS_ENTRADA = AUTDataLoader.carregarParametros("../va.testes.funcionais/Arquivos de Dados/AUTCN001.txt");
