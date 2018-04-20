@@ -203,6 +203,7 @@ public class AUTVAModuloCadastroClientesPF extends AUTTestObject{
 
 			boolean erroPesquisaCEP = AUTVAUtilidades.sincronizarStepPorTexto(20,docDriver, "\\<.{0,}\\>.{0,}\\W{0,}(Não foi possível realizar sua pesquisa, tente mais tarde|Não foi encontrado o endereço do CEP).\\W{0,}.{0,}\\<.{0,}\\>");
 			
+			
 			if(erroPesquisaCEP) {
 				System.out.println("AUT INFO : NAO FOI POSSIVEL PESQUISAR CEP ONLINE");
 

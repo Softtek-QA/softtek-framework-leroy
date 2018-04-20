@@ -41,7 +41,7 @@ public class AUTVAPedidos extends AUTTestObject{
 				AUT_TIPO_FLUXO_SAIDA.RETIRADA_INTERNA_IMEDIATA
 				});		
 		String materialTipoSaidaAux = materialTipoSaida.toString();
-		AUT_TIPO_LOJA tipoLojaFluxoSaida = AUT_TIPO_LOJA.LJ_OU_CD_0045;
+		AUT_TIPO_LOJA tipoLojaFluxoSaida = AUT_TIPO_LOJA.LJ_OU_CD_0027;
 		AUT_TIPO_DEPOSITO tipoDepositoFluxoSaida = AUT_TIPO_DEPOSITO.DEPOSITO_C010;	
 		String dtAgendamentoFluxoSd = "18/04/2018";
 

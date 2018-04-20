@@ -908,7 +908,6 @@ public class AUTVAUtilidades {
 					System.out.println("\n".concat(htmlItem));
 
 					itensOut.add(item);
-
 				}								
 			}			
 		}
